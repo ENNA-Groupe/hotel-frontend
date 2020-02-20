@@ -1,0 +1,22 @@
+.bg-blue{
+    background-color: #b5b6ec;
+}
+
+.search-box{
+    margin-top: 3px;
+    background: rgb(228, 225, 225);
+    position: absolute;
+    left: 4%;
+    width: 27%;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 2000;
+    ion-row{
+        cursor: grab;
+        border-bottom: 1px white;
+    }
+    ion-row:hover{
+        background-color: white;
+        color: grey;
+    }
+}

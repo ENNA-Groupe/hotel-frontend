@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar mode="ios" color="primary">
+    <ion-title>
+      {{title}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onClose()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label>Fonction</ion-label>
+          <ion-select disabled [(ngModel)]="fonctionId" [ngModelOptions]="{standalone: true}">
+            <ion-select-option *ngFor="let fonction of fonctions" [value]="fonction.id">{{fonction.nom}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label>Utilisateur</ion-label>
+          <ion-select disabled [(ngModel)]="operation.userId" [ngModelOptions]="{standalone: true}">
+            <ion-select-option *ngFor="let user of users|filterBy:'fonctionId':fonctionId" [value]="user.id">{{user.nom}} {{user.prenom}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="5" offset="2">Produit</ion-col>
+      <ion-col size="4">quantite</ion-col>
+      <ion-col size="1">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" class="ion-no-padding" *ngFor="let prod of produitsArray; let i = index">
+        <ion-item class="ion-no-padding">
+          <ion-label slot="start" class="">{{i+1}}</ion-label>
+          <ion-col size="7" class="" class="">
+            <ion-input readonly class="bg-blue " [(ngModel)]="prod.nom" [ngModelOptions]="{standalone: true}"
+              (click)="prod.searching=!prod.searching">
+            </ion-input>
+          </ion-col>
+          <ion-col size="4" class=" ">
+            <ion-input readonly class="bg-blue " type="number" [(ngModel)]="produitsArray[i].quantite"
+              [ngModelOptions]="{standalone: true}" >
+            </ion-input>
+          </ion-col>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

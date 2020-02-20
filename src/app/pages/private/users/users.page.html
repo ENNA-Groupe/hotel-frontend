@@ -1,0 +1,76 @@
+<ion-content  mode="ios">
+  <ion-grid fixed>
+    <ion-row *ngFor="let fonction of fonctions|sortBy:'asc':['nom']" class="ion-margin-bottom">
+      <ion-col size="12">
+        <ion-item lines="true" mode="ios">
+          <ion-button fill="clear"  (click)="fonction.expand=!fonction.expand">
+            <ion-icon slot="icon-only" name="ios-arrow-forward" *ngIf="!fonction.expand"></ion-icon>
+            <ion-icon slot="icon-only" name="ios-arrow-down"  *ngIf="fonction.expand"></ion-icon>
+          </ion-button>
+          <ion-label (click)="onShowFonction(fonction.id)">{{fonction.nom}}  
+            <ion-badge>{{(users|filterBy:'fonctionId':fonction.id|searchBy:data.searchValue).length}}</ion-badge></ion-label>
+
+          <ion-buttons slot="end">
+            <ion-button (click)="onAddUser(fonction.id)">
+              <ion-icon slot="start" name="ios-person-add"></ion-icon>
+            </ion-button>
+            <ion-button (click)="onEditFonction(fonction.id)">
+              <ion-icon name="create"></ion-icon>
+            </ion-button>
+            <ion-button (click)="onDeleteFonction(fonction.id)">
+              <ion-icon color="danger" name="trash"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+         
+        </ion-item>
+        <div *ngIf="fonction.expand" class="container">
+          <ion-slides mode="ios" pager="ios"  [options]="slidesOptions">
+            <ion-slide *ngFor="let user of users|filterBy:'fonctionId':fonction.id|sortBy:'asc':['nom', 'prenom']|searchBy:data.searchValue">
+             <ion-card mode="ios">
+              <div class="img">
+                <img src="{{user.photo}}">
+              </div>
+               <ion-card-header>
+                <ion-card-title (click)="onShowUser(user.id)" color="secondary">{{user.nom}} {{user.prenom}}</ion-card-title>
+                 <ion-card-subtitle >{{user.contact}}</ion-card-subtitle>
+                 
+               </ion-card-header>
+               <ion-card-content>
+                <ion-row>
+                  <ion-col offset="3" size="3">
+                    <ion-button fill="clear" (click)="onShowUser(user.id)">
+                      <ion-icon slot="icon-only" name="eye"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                  <ion-col size="3">
+                    <ion-button fill="clear" (click)="onEditUser(user.id)">
+                      <ion-icon slot="icon-only" name="create"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                  <ion-col size="3">
+                   <ion-button fill="clear" (click)="onDeleteUser(user.id)">
+                     <ion-icon slot="icon-only" color="danger" name="trash"></ion-icon>
+                   </ion-button>
+                 </ion-col>
+                </ion-row>
+               </ion-card-content>
+             </ion-card>
+            </ion-slide>
+          </ion-slides>
+          <ion-text color="danger" *ngIf="(users|filterBy:'fonctionId':fonction.id|searchBy:data.searchValue).length===0" >
+            <p>Aucun utilisateur trouvé!</p>
+          </ion-text>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+    <ion-text color="danger" *ngIf="fonctions.length===0">
+      <p>Aucune fonction! Veuillez ajouter une fonction!</p>
+    </ion-text>
+  
+  <ion-fab  *ngIf="!trash"  vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="onAddFonction()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

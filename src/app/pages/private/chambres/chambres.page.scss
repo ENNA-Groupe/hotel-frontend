@@ -1,0 +1,13 @@
+ion-card{
+    width: 220px;
+    height: 200px;
+    background-color: white;
+    .desc{
+        height: 70px;
+       overflow: auto;
+    }
+}
+.container{
+    background-color: rgba(0,100,255,0.1);
+    height: 250px;
+}
