@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar mode="ios" color="primary">
+    <ion-title>
+      Table {{numeroTable}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onValidate()">
+        <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+      </ion-button>
+      <ion-button (click)="onClose()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-radio-group [(ngModel)]="clientId">
+    <ion-item>
+      <ion-input type="text" [(ngModel)]="search" placeholder="Recherche..."></ion-input>
+    </ion-item>
+    <ion-item mode="ios" *ngFor="let client of clients|sortBy:'asc':['nom', 'prenom']|searchBy:search">
+      <ion-label>{{client.nom}} {{client.prenom}}</ion-label>
+      <ion-radio mode="ios" [value]="client.id" slot="end"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+</ion-content>

@@ -1,22 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Categorie } from 'src/app/models/categorie.model';
 import { Produit } from 'src/app/models/produit.model';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, ModalController } from '@ionic/angular';
 import { ProduitService } from 'src/app/services/produit.service';
 import { DataService } from 'src/app/services/data.service';
-import { Router } from '@angular/router';
-import { CategorieFormComponent } from 'src/app/components/categorie-form/categorie-form.component';
-import { CategorieProfilComponent } from 'src/app/components/categorie-profil/categorie-profil.component';
-import { ProduitFormComponent } from 'src/app/components/produit-form/produit-form.component';
-import { ProduitProfilComponent } from 'src/app/components/produit-profil/produit-profil.component';
+import { CategorieFormComponent } from 'src/app/components/forms/categorie-form/categorie-form.component';
+import { CategorieProfilComponent } from 'src/app/components/profil/categorie-profil/categorie-profil.component';
+import { ProduitFormComponent } from 'src/app/components/forms/produit-form/produit-form.component';
+import { ProduitProfilComponent } from 'src/app/components/profil/produit-profil/produit-profil.component';
 
 @Component({
   selector: 'app-produits',
   templateUrl: './produits.page.html',
   styleUrls: ['./produits.page.scss'],
 })
-export class ProduitsPage implements OnInit {
+export class ProduitsPage implements OnInit, OnDestroy {
 
   categorieSubscription: Subscription;
   categories: Categorie[];
@@ -27,12 +26,40 @@ export class ProduitsPage implements OnInit {
   produits: Produit[];
 
   trash:boolean = false;
+  slidesOptions = {
+    initialSlide: 0,
+    spaceBetween: 4,
+    slidesPerView: 4,
+    breakpoints: {
+      // when window width is >= 320px
+      385: {
+        slidesPerView: 1,
+        spaceBetween: 10
+      },
+      // when window width is >= 480px
+      480: {
+        slidesPerView: 1.5,
+        spaceBetween: 1
+      },
+      // when window width is >= 640px
+      765: {
+        slidesPerView: 2,
+        spaceBetween: 10
+      },
+      // when window width is >= 640px
+      1200: {
+        slidesPerView: 3,
+        spaceBetween: 10
+      }
+      // freeMode: true,
+    }
+  };
 
   constructor(
     private popoverController: PopoverController,
+    private modalController: ModalController,
     private produitService: ProduitService,
     private data: DataService,
-    private router: Router
   ) { }
 
   ngOnInit() {
@@ -112,18 +139,21 @@ export class ProduitsPage implements OnInit {
   }
 
   onDeleteCategorie(id: number){
-    this.produitService.deleteCategorie(id);
+    if(window.confirm('Voulez vous vraiment supprimer cette catégorie?')) this.produitService.deleteCategorie(id);
   }
 
   onRestoreCategorie(id: number){
-    this.produitService.restoreCategorie(id);
+    if(window.confirm('Voulez vous vraiment restorer cette catégorie?')) this.produitService.restoreCategorie(id);
   }
 
   
   async onAddProduit(id) {
     const popover = await this.popoverController.create({
       component: ProduitFormComponent,
-      translucent: false
+      translucent: false,
+      componentProps: {
+        catId: id
+      }
     });
   
     popover.onDidDismiss().then(
@@ -138,7 +168,7 @@ export class ProduitsPage implements OnInit {
   async onEditProduit(id) {
     const popover = await this.popoverController.create({
       component: ProduitFormComponent,
-      translucent: false,
+      translucent: true,
       componentProps: {
         id: id
       }
@@ -153,15 +183,14 @@ export class ProduitsPage implements OnInit {
   }
 
   async onShowProduit(id) {
-    const popover = await this.popoverController.create({
+    const modal = await this.modalController.create({
       component: ProduitProfilComponent,
-      translucent: false,
       componentProps: {
         id: id,
         trash: this.trash
       }
     });
-    await popover.present();
+    await modal.present();
   }
   
   onDeleteProduit(id: number){
@@ -169,7 +198,7 @@ export class ProduitsPage implements OnInit {
   }
 
   onRestoreProduit(id: number){
-    this.produitService.restoreProduit(id);
+    if(window.confirm('Voulez vous vraiment restorer ce produit?')) this.produitService.restoreProduit(id);
   }
 
 }

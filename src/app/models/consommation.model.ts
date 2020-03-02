@@ -1,8 +1,10 @@
 export class Consommation {
     id: number;
     tableId: number;
-    montantTotal: number;
+    clientId: number;
+    factureTotale: number;
     createdAt:string;
     updatedAt: string;
     deletedAt: string;
+    products: any[];
 }

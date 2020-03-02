@@ -5,10 +5,10 @@ import { User } from 'src/app/models/user.model';
 import { PopoverController, ModalController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 import { DataService } from 'src/app/services/data.service';
-import { FonctionFormComponent } from 'src/app/components/fonction-form/fonction-form.component';
-import { FonctionProfilComponent } from 'src/app/components/fonction-profil/fonction-profil.component';
-import { UserFormComponent } from 'src/app/components/user-form/user-form.component';
-import { UserProfilComponent } from 'src/app/components/user-profil/user-profil.component';
+import { FonctionFormComponent } from 'src/app/components/forms/fonction-form/fonction-form.component';
+import { FonctionProfilComponent } from 'src/app/components/profil/fonction-profil/fonction-profil.component';
+import { UserFormComponent } from 'src/app/components/forms/user-form/user-form.component';
+import { UserProfilComponent } from 'src/app/components/profil/user-profil/user-profil.component';
 
 @Component({
   selector: 'app-users',

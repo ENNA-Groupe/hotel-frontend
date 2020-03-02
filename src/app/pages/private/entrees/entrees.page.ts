@@ -4,9 +4,9 @@ import { Subscription } from 'rxjs';
 import { ModalController } from '@ionic/angular';
 import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
-import { EntreeFormComponent } from 'src/app/components/entree-form/entree-form.component';
-import { EntreeProfilComponent } from 'src/app/components/entree-profil/entree-profil.component';
 import { Entree } from 'src/app/models/entree.model';
+import { EntreeFormComponent } from 'src/app/components/forms/entree-form/entree-form.component';
+import { EntreeProfilComponent } from 'src/app/components/profil/entree-profil/entree-profil.component';
 
 @Component({
   selector: 'app-entrees',

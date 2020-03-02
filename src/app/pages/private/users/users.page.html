@@ -4,21 +4,21 @@
       <ion-col size="12">
         <ion-item lines="true" mode="ios">
           <ion-button fill="clear"  (click)="fonction.expand=!fonction.expand">
-            <ion-icon slot="icon-only" name="ios-arrow-forward" *ngIf="!fonction.expand"></ion-icon>
-            <ion-icon slot="icon-only" name="ios-arrow-down"  *ngIf="fonction.expand"></ion-icon>
+            <ion-icon slot="icon-only" name="chevron-forward-outline" *ngIf="!fonction.expand"></ion-icon>
+            <ion-icon slot="icon-only" name="chevron-down-outline"  *ngIf="fonction.expand"></ion-icon>
           </ion-button>
           <ion-label (click)="onShowFonction(fonction.id)">{{fonction.nom}}  
             <ion-badge>{{(users|filterBy:'fonctionId':fonction.id|searchBy:data.searchValue).length}}</ion-badge></ion-label>
 
           <ion-buttons slot="end">
             <ion-button (click)="onAddUser(fonction.id)">
-              <ion-icon slot="start" name="ios-person-add"></ion-icon>
+              <ion-icon slot="start" name="person-add-outline"></ion-icon>
             </ion-button>
             <ion-button (click)="onEditFonction(fonction.id)">
-              <ion-icon name="create"></ion-icon>
+              <ion-icon color="warning" name="create-outline"></ion-icon>
             </ion-button>
             <ion-button (click)="onDeleteFonction(fonction.id)">
-              <ion-icon color="danger" name="trash"></ion-icon>
+              <ion-icon color="danger" name="trash-outline"></ion-icon>
             </ion-button>
           </ion-buttons>
          
@@ -35,21 +35,21 @@
                  <ion-card-subtitle >{{user.contact}}</ion-card-subtitle>
                  
                </ion-card-header>
-               <ion-card-content>
+               <ion-card-content class="ion-no-margin">
                 <ion-row>
-                  <ion-col offset="3" size="3">
+                  <ion-col  class="ion-no-padding" offset="3" size="3">
                     <ion-button fill="clear" (click)="onShowUser(user.id)">
-                      <ion-icon slot="icon-only" name="eye"></ion-icon>
+                      <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
                     </ion-button>
                   </ion-col>
-                  <ion-col size="3">
+                  <ion-col  class="ion-no-padding" size="3">
                     <ion-button fill="clear" (click)="onEditUser(user.id)">
-                      <ion-icon slot="icon-only" name="create"></ion-icon>
+                      <ion-icon slot="icon-only" color="warning" name="create-outline"></ion-icon>
                     </ion-button>
                   </ion-col>
-                  <ion-col size="3">
+                  <ion-col  class="ion-no-padding" size="3">
                    <ion-button fill="clear" (click)="onDeleteUser(user.id)">
-                     <ion-icon slot="icon-only" color="danger" name="trash"></ion-icon>
+                     <ion-icon slot="icon-only" color="danger" name="trash-outline"></ion-icon>
                    </ion-button>
                  </ion-col>
                 </ion-row>

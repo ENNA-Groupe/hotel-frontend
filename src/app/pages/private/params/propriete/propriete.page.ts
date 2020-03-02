@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Propriete } from 'src/app/models/propriete.model';
-import { ProprieteFormComponent } from 'src/app/components/propriete-form/propriete-form.component';
-import { ProprieteProfilComponent } from 'src/app/components/propriete-profil/propriete-profil.component';
 import { Subscription } from 'rxjs';
 import { PopoverController } from '@ionic/angular';
 import { DataService } from 'src/app/services/data.service';
 import { ParamsService } from 'src/app/services/params.service';
 import { Router } from '@angular/router';
+import { ProprieteFormComponent } from 'src/app/components/forms/propriete-form/propriete-form.component';
+import { ProprieteProfilComponent } from 'src/app/components/profil/propriete-profil/propriete-profil.component';
 
 @Component({
   selector: 'app-propriete',

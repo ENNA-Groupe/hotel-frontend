@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid fixed>\n    <ion-row>\n      <ion-col *ngFor=\"let table of tables\" size=\"12\">\n        <ion-card mode=\"ios\" >\n          <ion-card-header>\n            <ion-card-title>Table N {{table.numero}}  <ion-badge color=\"secondary\" mode=\"ios\">4200 FCFA</ion-badge></ion-card-title>\n          </ion-card-header>\n          <ion-card-content>\n            <ion-list>\n              <ion-item *ngFor=\"let conso of consommations\">\n                <ion-label>{{conso.produit}}</ion-label>\n                <div slot=\"end\">\n                  <ion-badge  color=\"secondary\" mode=\"ios\">{{conso.quantite}}</ion-badge>\n                  <ion-button (click)=\"onClick()\">\n                    <ion-icon slot=\"icon-only\" name=\"onAddConso(table.id, conso.id)\"></ion-icon>\n                  </ion-button>\n                </div>\n               \n              </ion-item>\n            </ion-list>\n            <p>Aucune consommation</p>\n          </ion-card-content>\n          <ion-fab vertical=\"bottom\" horizontal=\"start\" slot=\"fixed\">\n            <ion-fab-button color=\"success\" (click)=\"endConso()\">\n              <ion-icon name=\"checkmark\"></ion-icon>\n            </ion-fab-button>\n          </ion-fab>\n          <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n            <ion-fab-button (click)=\"onAddConso(table.id)\">\n              <ion-icon name=\"add\"></ion-icon>\n            </ion-fab-button>\n          </ion-fab>\n        </ion-card>\n      </ion-col>\n\n    </ion-row>\n  </ion-grid>\n \n   \n  <ion-fab  *ngIf=\"!trash\"  vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n    <ion-fab-button (click)=\"onAddTable()\">\n      <ion-icon name=\"add\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab>\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid fixed>\n    <ion-row>\n      <ion-col *ngFor=\"let table of tables\" size=\"12\">\n        <ion-card mode=\"ios\" >\n          <ion-card-header>\n            <ion-card-title>Table N {{table.numero}}  <ion-badge color=\"secondary\" mode=\"ios\">4200 FCFA</ion-badge></ion-card-title>\n          </ion-card-header>\n          <ion-card-content>\n            <ion-list>\n              <ion-item *ngFor=\"let conso of consommations\">\n                <ion-label>{{conso.nom}}</ion-label>\n                <div slot=\"end\">\n                  <ion-badge  color=\"secondary\" mode=\"ios\">{{conso.quantite}}</ion-badge>\n                  <ion-button (click)=\"onClick()\">\n                    <ion-icon slot=\"icon-only\" name=\"onAddConso(table.id, table.numero, conso.id)\"></ion-icon>\n                  </ion-button>\n                </div>\n               \n              </ion-item>\n            </ion-list>\n            <p>Aucune consommation</p>\n            <ion-fab vertical=\"bottom\" horizontal=\"start\" slot=\"fixed\">\n              <ion-fab-button color=\"success\" (click)=\"endConso(table.id, table.numero, conso.id)\">\n                <ion-icon name=\"checkmark\"></ion-icon>\n              </ion-fab-button>\n            </ion-fab>\n            <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n              <ion-fab-button (click)=\"onAddConso(table.id, table.numero)\">\n                <ion-icon name=\"add\"></ion-icon>\n              </ion-fab-button>\n            </ion-fab>\n          </ion-card-content>\n        </ion-card>\n      </ion-col>\n\n    </ion-row>\n  </ion-grid>\n \n   \n  <ion-fab  *ngIf=\"!trash\"  vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n    <ion-fab-button (click)=\"onAddTable()\">\n      <ion-icon name=\"add\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab>\n</ion-content>\n");
 
 /***/ }),
 
@@ -176,19 +176,23 @@ let ConsommationsPage = class ConsommationsPage {
     onRestoreTable(id) {
         this.consommationService.restoreTable(id);
     }
-    onAddConso(tableId, consoId) {
+    onAddConso(tableId, numeroTable, consoId) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             if (!consoId) {
                 const modal = yield this.modalController.create({
                     component: src_app_components_consommation_form_consommation_form_component__WEBPACK_IMPORTED_MODULE_7__["ConsommationFormComponent"],
                     componentProps: {
-                        tableId: tableId
+                        numeroTable: numeroTable
                     }
                 });
                 modal.onDidDismiss().then((res) => {
                     console.log(res.data);
                     if (res.data) {
-                        this.consommationService.addConsommation({ consommation: { tableId: tableId }, produits: res.data });
+                        res.data.consommation.tableId = tableId;
+                        res.data.consommation.factureTotale = res.data.produits.reduce((a, b) => {
+                            a + (b.prixUnitaireVente * b.quantite);
+                        }, 0);
+                        this.consommationService.addConsommation(res.data);
                     }
                 });
                 yield modal.present();

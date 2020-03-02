@@ -5,9 +5,9 @@ import { Consommation } from 'src/app/models/consommation.model';
 import { PopoverController, ModalController } from '@ionic/angular';
 import { ConsommationService } from 'src/app/services/consommation.service';
 import { DataService } from 'src/app/services/data.service';
-import { TableFormComponent } from 'src/app/components/table-form/table-form.component';
-import { TableProfilComponent } from 'src/app/components/table-profil/table-profil.component';
-import { ConsommationFormComponent } from 'src/app/components/consommation-form/consommation-form.component';
+import { TableFormComponent } from 'src/app/components/forms/table-form/table-form.component';
+import { TableProfilComponent } from 'src/app/components/profil/table-profil/table-profil.component';
+import { ConsommationFormComponent } from 'src/app/components/forms/consommation-form/consommation-form.component';
 
 @Component({
   selector: 'app-consommations',
@@ -109,13 +109,12 @@ export class ConsommationsPage implements OnInit {
     this.consommationService.restoreTable(id);
   }
 
-  
-  async onAddConso(tableId: number, consoId?: number) {
+  async onAddConso(tableId: number, numeroTable: number, consoId?: number) {
     if(!consoId){
       const modal = await this.modalController.create({
         component: ConsommationFormComponent,
         componentProps: {
-          tableId: tableId
+          numeroTable: numeroTable
         }
       });
     
@@ -124,7 +123,9 @@ export class ConsommationsPage implements OnInit {
           console.log(res.data);
           
           if (res.data) {
-            this.consommationService.addConsommation({consommation: {tableId: tableId},produits: res.data});
+            res.data.consommation.tableId=tableId;
+            res.data.consommation.factureTotale = res.data.produits.map(item=>item.quantite*item.prixUnitaire).reduce((a,b)=>a+b,0);
+            this.consommationService.addConsommation(res.data);
           }
         }
       )

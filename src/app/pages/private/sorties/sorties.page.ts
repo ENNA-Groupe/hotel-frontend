@@ -4,10 +4,10 @@ import { ModalController } from '@ionic/angular';
 import { DataService } from 'src/app/services/data.service';
 import { SortieService } from 'src/app/services/sortie.service';
 import { Router } from '@angular/router';
-import { SortieFormComponent } from 'src/app/components/sortie-form/sortie-form.component';
-import { SortieProfilComponent } from 'src/app/components/sortie-profil/sortie-profil.component';
 import { Sortie } from 'src/app/models/sortie.model';
 import { UserService } from 'src/app/services/user.service';
+import { SortieFormComponent } from 'src/app/components/forms/sortie-form/sortie-form.component';
+import { SortieProfilComponent } from 'src/app/components/profil/sortie-profil/sortie-profil.component';
 
 @Component({
   selector: 'app-sorties',

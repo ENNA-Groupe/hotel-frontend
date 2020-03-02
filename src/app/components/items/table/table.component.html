@@ -1,0 +1,38 @@
+<ion-card mode="ios">
+  <ion-card-header>
+    <ion-item>
+      <ion-card-title>Table N {{table.numero}}
+      </ion-card-title>
+      <ion-button *ngIf="consommation" color="light" (click)="onChooseClient()" expand="block"  shape="round">
+        <span *ngIf="!client">Anonyme</span>
+      <span *ngIf="client">{{client.nom}} {{client.prenom}}</span>
+      </ion-button>
+      <ion-badge slot="end" *ngIf="consommation" color="secondary" mode="ios">{{consommation.factureTotale}}</ion-badge>
+      <ion-badge slot="end" *ngIf="!consommation" color="secondary" mode="ios">0</ion-badge>
+    </ion-item>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-item>
+      <ion-label *ngIf="!consommation" color="danger">Pas de consommation en cours</ion-label>
+      <ion-slides mode="ios" pager="ios" *ngIf="consommation">
+        <ion-slide *ngFor="let produit of consommation.products">
+            <app-produit-conso [produitId]="produit.id" [consommationId]="consommation.id"></app-produit-conso>
+        </ion-slide>
+      </ion-slides>
+    </ion-item>
+    <div class="text-center">
+      <ion-button color="success" *ngIf="consommation" (click)="onShowFacture()"
+        expand="block" shape="round">
+        Facture 
+      </ion-button>
+      <ion-button  *ngIf="consommation" (click)="onAddProduit()"
+        expand="block" shape="round">
+        Ajouter
+      </ion-button>
+      <ion-button color="primary" *ngIf="!consommation" (click)="onAddConso(table.id, table.numero)" expand="block"
+        shape="round">
+        Demarrer 
+      </ion-button>
+    </div>
+  </ion-card-content>
+</ion-card>

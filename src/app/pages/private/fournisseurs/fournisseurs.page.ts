@@ -5,8 +5,8 @@ import { PopoverController } from '@ionic/angular';
 import { DataService } from 'src/app/services/data.service';
 import { EntreeService } from 'src/app/services/entree.service';
 import { Router } from '@angular/router';
-import { FournisseurFormComponent } from 'src/app/components/fournisseur-form/fournisseur-form.component';
-import { FournisseurProfilComponent } from 'src/app/components/fournisseur-profil/fournisseur-profil.component';
+import { FournisseurFormComponent } from 'src/app/components/forms/fournisseur-form/fournisseur-form.component';
+import { FournisseurProfilComponent } from 'src/app/components/profil/fournisseur-profil/fournisseur-profil.component';
 
 @Component({
   selector: 'app-fournisseurs',

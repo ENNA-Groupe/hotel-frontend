@@ -5,8 +5,8 @@ import { PopoverController } from '@ionic/angular';
 import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
 import { ParamsService } from 'src/app/services/params.service';
-import { ControlFormComponent } from 'src/app/components/control-form/control-form.component';
-import { ControlProfilComponent } from 'src/app/components/control-profil/control-profil.component';
+import { ControlFormComponent } from 'src/app/components/forms/control-form/control-form.component';
+import { ControlProfilComponent } from 'src/app/components/profil/control-profil/control-profil.component';
 
 @Component({
   selector: 'app-controls',

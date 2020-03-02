@@ -1,0 +1,182 @@
+<ion-header>
+  <ion-toolbar mode="ios" color="primary">
+    <ion-buttons slot="end">
+      <ion-button (click)="onClose()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides mode="ios" [options]="slideOpts" #slides>
+
+    <ion-slide>
+      <ion-list mode="ios" *ngIf="!addClient">
+        <ion-item>
+          <ion-input type="text" placeholder="Recherche..." [(ngModel)]="search"></ion-input>
+        </ion-item>
+        <ion-radio-group [(ngModel)]="client">
+          <ion-item mode="ios" *ngFor="let item of clients">
+            <ion-label>{{item.nom}} {{item.prenom}}</ion-label>
+            <ion-radio [value]="item"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+      <ion-list *ngIf="addClient">
+        <ion-item>
+          <ion-label position="floating" color="primary">Nom :</ion-label>
+          <ion-input [(ngModel)]="newClient.nom" type="text" spellcheck="false" autocapitalize="on" required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" color="primary">Prenom :</ion-label>
+          <ion-input [(ngModel)]="newClient.prenom" type="text" spellcheck="false" autocapitalize="off" required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" color="primary">Contact 1 :</ion-label>
+          <ion-input [(ngModel)]="newClient.contact1" type="text" spellcheck="false" autocapitalize="off" required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" color="primary">Contact 2 :</ion-label>
+          <ion-input [(ngModel)]="newClient.contact2" type="text" spellcheck="false" autocapitalize="off" required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" color="primary">Adresse :</ion-label>
+          <ion-input [(ngModel)]="newClient.adresse" type="text" spellcheck="false" autocapitalize="off" required>
+          </ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-card mode="ios">
+        <ion-item mode="ios">
+          <ion-col size="4">Nom</ion-col>
+          <ion-col size="8">
+            :<ion-text *ngIf="client" color="secondary">{{client.nom}}</ion-text>
+            <ion-skeleton-text *ngIf="!client" animated style="width: 90%"></ion-skeleton-text>
+          </ion-col>
+        </ion-item>
+        <ion-item mode="ios">
+          <ion-col size="4">Prenom</ion-col>
+          <ion-col size="8">
+            :<ion-text *ngIf="client" color="secondary">{{client.prenom}}</ion-text>
+            <ion-skeleton-text *ngIf="!client" animated style="width: 90%"></ion-skeleton-text>
+          </ion-col>
+        </ion-item>
+        <ion-item mode="ios">
+          <ion-col size="4">Contact 1</ion-col>
+          <ion-col size="8">
+            :<ion-text *ngIf="client" color="secondary">{{client.contact1}}</ion-text>
+            <ion-skeleton-text *ngIf="!client" animated style="width: 90%"></ion-skeleton-text>
+          </ion-col>
+        </ion-item>
+        <ion-item mode="ios">
+          <ion-col size="4">Contact 2</ion-col>
+          <ion-col size="8">:<ion-text *ngIf="client" color="secondary">{{client.contact2}}</ion-text>
+            <ion-skeleton-text *ngIf="!client" animated style="width: 90%"></ion-skeleton-text>
+          </ion-col>
+        </ion-item>
+        <ion-item mode="ios">
+          <ion-col size="4">Ajouté le</ion-col>
+          <ion-col size="8">
+            :<ion-text *ngIf="client" color="secondary">{{client.createdAt|date:'dd-MM-yyyy HH:mm'}}</ion-text>
+            <ion-skeleton-text *ngIf="!client" animated style="width: 90%"></ion-skeleton-text>
+          </ion-col>
+        </ion-item>
+        <ion-item mode="ios">
+          <ion-col size="4">Modifié le</ion-col>
+          <ion-col size="8">
+            :<ion-text *ngIf="client" color="secondary">{{client.updatedAt|date:'dd-MM-yyyy HH:mm'}}</ion-text>
+            <ion-skeleton-text *ngIf="!client" animated style="width: 90%"></ion-skeleton-text>
+          </ion-col>
+        </ion-item>
+      </ion-card>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-card mode="ios">
+        <ion-item>
+          <ion-label>Choix de la chambre</ion-label>
+          <ion-select [(ngModel)]="chambre">
+            <ion-select-option *ngFor="let item of chambres" [value]="item">Chambre {{item.numero}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-card-content>
+          <ion-item mode="ios">
+            <ion-col size="4">Numero</ion-col>
+            <ion-col size="8">:<ion-text *ngIf="chambre" color="secondary">{{chambre.numero}}</ion-text>
+              <ion-skeleton-text *ngIf="!chambre" animated style="width: 90%"></ion-skeleton-text>
+            </ion-col>
+          </ion-item>
+          <ion-item mode="ios">
+            <ion-col size="4">Prix journalier</ion-col>
+            <ion-col size="8">:<ion-text *ngIf="chambre" color="secondary">{{chambre.prixJournalier}}</ion-text>
+              <ion-skeleton-text *ngIf="!chambre" animated style="width: 90%"></ion-skeleton-text>
+            </ion-col>
+          </ion-item>
+
+          <ion-item mode="ios">
+            <ion-col size="4">Ajouté le</ion-col>
+            <ion-col size="8">:<ion-text *ngIf="chambre" color="secondary">{{chambre.createdAt|date:'dd-MM-yyyy HH:mm'}}
+              </ion-text>
+              <ion-skeleton-text *ngIf="!chambre" animated style="width: 90%"></ion-skeleton-text>
+            </ion-col>
+          </ion-item>
+
+          <ion-item mode="ios">
+            <ion-col size="4">Modifié le</ion-col>
+            <ion-col size="8">:<ion-text *ngIf="chambre" color="secondary">{{chambre.updatedAt|date:'dd-MM-yyyy HH:mm'}}
+              </ion-text>
+              <ion-skeleton-text *ngIf="!chambre" animated style="width: 90%"></ion-skeleton-text>
+            </ion-col>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card mode="ios">
+        <ion-item>
+          <ion-label>Prix journalier</ion-label>
+          <ion-input type="text" readonly>{{prixJournalier}}</ion-input>
+        </ion-item>
+        <ion-list mode="ios">
+          <ion-item mode="ios" *ngFor="let propriete of options">
+            <ion-label>{{propriete.description}}</ion-label>
+            <ion-checkbox mode="ios" [(ngModel)]="propriete.isChecked" slot="start"></ion-checkbox>
+          </ion-item>
+        </ion-list>
+      </ion-card>
+    </ion-slide>
+    <ion-fab  vertical="bottom" horizontal="start" slot="fixed">
+      <ion-fab-button *ngIf="slideIndex===0 && addClient===true" color="light" (click)="addClient=false">
+        <ion-icon  name="search"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button *ngIf="slideIndex===0 && addClient===false" color="light" (click)="addClient=true" >
+        <ion-icon  name="add"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button *ngIf="slideIndex !=0" color="light" (click)="onPrevious()">
+        <ion-icon  name="chevron-backward-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-fab  vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button *ngIf="slideIndex < 3" (click)="onNext()">
+        <ion-icon  name="chevron-forward-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button *ngIf="slideIndex === 3" (click)="onValidate()">
+        <ion-icon  name="checkmark"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ion-slides>
+
+
+ 
+</ion-content>

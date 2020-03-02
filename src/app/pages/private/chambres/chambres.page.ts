@@ -5,11 +5,11 @@ import { PopoverController, ModalController } from '@ionic/angular';
 import { ChambreService } from 'src/app/services/chambre.service';
 import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
-import { TypeFormComponent } from 'src/app/components/type-form/type-form.component';
-import { TypeProfilComponent } from 'src/app/components/type-profil/type-profil.component';
 import { Type } from 'src/app/models/type.model';
-import { ChambreFormComponent } from 'src/app/components/chambre-form/chambre-form.component';
-import { ChambreProfilComponent } from 'src/app/components/chambre-profil/chambre-profil.component';
+import { TypeFormComponent } from 'src/app/components/forms/type-form/type-form.component';
+import { TypeProfilComponent } from 'src/app/components/profil/type-profil/type-profil.component';
+import { ChambreFormComponent } from 'src/app/components/forms/chambre-form/chambre-form.component';
+import { ChambreProfilComponent } from 'src/app/components/profil/chambre-profil/chambre-profil.component';
 
 @Component({
   selector: 'app-chambres',

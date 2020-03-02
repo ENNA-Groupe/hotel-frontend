@@ -4,21 +4,21 @@
       <ion-col size="12">
         <ion-item lines="true" mode="ios">
           <ion-button fill="clear"  (click)="categorie.expand=!categorie.expand">
-            <ion-icon slot="icon-only" name="ios-arrow-forward" *ngIf="!categorie.expand"></ion-icon>
-            <ion-icon slot="icon-only" name="ios-arrow-down"  *ngIf="categorie.expand"></ion-icon>
+            <ion-icon slot="icon-only" name="chevron-forward-outline" *ngIf="!categorie.expand"></ion-icon>
+            <ion-icon slot="icon-only" name="chevron-down-outline"  *ngIf="categorie.expand"></ion-icon>
           </ion-button>
           <ion-label (click)="onShowCategorie(categorie.id)">{{categorie.nom}}  
             <ion-badge>{{(intrants|filterBy:'categorieId':categorie.id|searchBy:data.searchValue).length}}</ion-badge></ion-label>
 
           <ion-buttons slot="end">
             <ion-button (click)="onAddIntrant(categorie.id)">
-              <ion-icon slot="start" name="add"></ion-icon>
+              <ion-icon slot="start" name="add-outline"></ion-icon>
             </ion-button>
             <ion-button (click)="onEditCategorie(categorie.id)">
-              <ion-icon name="create"></ion-icon>
+              <ion-icon color="warning" name="create-outline"></ion-icon>
             </ion-button>
             <ion-button (click)="onDeleteCategorie(categorie.id)">
-              <ion-icon color="danger" name="trash"></ion-icon>
+              <ion-icon color="danger" name="trash-outline"></ion-icon>
             </ion-button>
           </ion-buttons>
          
@@ -39,14 +39,19 @@
                    </p>
                  </ion-row>
                 <ion-row>
-                  <ion-col offset="6" size="2">
-                    <ion-button fill="clear" (click)="onEditIntrant(intrant.id)">
-                      <ion-icon slot="icon-only" name="create"></ion-icon>
+                  <ion-col class="ion-no-padding" offset="3" size="3">
+                    <ion-button fill="clear" (click)="onShowIntrant(intrant.id)">
+                      <ion-icon slot="icon-only"  name="eye"></ion-icon>
                     </ion-button>
                   </ion-col>
-                  <ion-col size="2">
+                  <ion-col class="ion-no-padding"  size="3">
+                    <ion-button fill="clear" (click)="onEditIntrant(intrant.id)">
+                      <ion-icon slot="icon-only" color="warning" name="create-outline"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                  <ion-col class="ion-no-padding" size="3">
                    <ion-button fill="clear" (click)="onDeleteIntrant(intrant.id)">
-                     <ion-icon slot="icon-only" color="danger" name="trash"></ion-icon>
+                     <ion-icon slot="icon-only" color="danger" name="trash-outline"></ion-icon>
                    </ion-button>
                  </ion-col>
                 </ion-row>

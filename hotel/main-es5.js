@@ -294,7 +294,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<p>\n  client-form works!\n</p>\n";
+    __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n    <ion-title>\n      {{title}}\n    </ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"onClose()\">\n        <ion-icon slot=\"icon-only\" name=\"close\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\">\n    <ion-item>\n      <ion-label position=\"stacked\" color=\"primary\">Nom</ion-label>\n      <ion-input formControlName=\"nom\" type=\"text\" spellcheck=\"false\" autocapitalize=\"on\" required>\n      </ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label position=\"stacked\" color=\"primary\">Prenom</ion-label>\n      <ion-input formControlName=\"prenom\" type=\"text\" spellcheck=\"false\" autocapitalize=\"off\" required>\n      </ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label position=\"stacked\" color=\"primary\">Contact 1</ion-label>\n      <ion-input formControlName=\"contact1\" type=\"text\" spellcheck=\"false\" autocapitalize=\"off\" required>\n      </ion-input>\n    </ion-item>\n\n    \n    <ion-item>\n      <ion-label position=\"stacked\" color=\"primary\">Contact 2</ion-label>\n      <ion-input formControlName=\"contact2\" type=\"text\" spellcheck=\"false\" autocapitalize=\"off\" required>\n      </ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label position=\"stacked\" color=\"primary\">Adresse</ion-label>\n      <ion-input formControlName=\"adresse\" type=\"text\" spellcheck=\"false\" autocapitalize=\"off\" required>\n      </ion-input>\n    </ion-item>\n   \n    <ion-text class=\"ion-padding-start\" color=\"danger\"\n    *ngIf=\"(nom.invalid && (nom.dirty || nom.touched))\">\n      <p  *ngIf=\"nom.errors.required\" >\n        Le nom est requis.\n      </p>\n    </ion-text>\n    <ion-text class=\"ion-padding-start\" color=\"danger\"\n    *ngIf=\"(contact1.invalid && (contact1.dirty || contact1.touched))\">\n      <p  *ngIf=\"contact1.errors.required\" >\n        Le contact1 est requis.\n      </p>\n      <p  *ngIf=\"contact1.errors.minlength\" >\n        Le contact 1 doit être superieur à 8 charactères.\n      </p>\n    </ion-text>\n    <ion-text class=\"ion-padding-start\" color=\"danger\"\n    *ngIf=\"(adresse.invalid && (adresse.dirty || adresse.touched))\">\n      <p  *ngIf=\"adresse.errors.minlength\" >\n        L' adresse doit être superieur à 2 charactères.\n      </p>\n      <p  *ngIf=\"adresse.errors.required\" >\n        L' adresse est requis.\n      </p>\n    </ion-text>\n\n\n    <ion-row>\n      <ion-col>\n        <ion-button color=\"light\" type=\"reset\" expand=\"block\">Effacer</ion-button>\n      </ion-col>\n      <ion-col>\n        <ion-button [disabled]=\"!form.valid\" type=\"submit\" expand=\"block\">Valider</ion-button>\n      </ion-col>\n    </ion-row>\n  </form>\n</ion-content>";
     /***/
   },
 
@@ -334,7 +334,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n    <ion-title>\n      {{title}}\n    </ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"onClose()\">\n        <ion-icon slot=\"icon-only\" name=\"close\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content  mode=\"ios\">\n  <ion-grid fixed>\n    <ion-row *ngFor=\"let categorie of categories|sortBy:'asc':['nom']\" class=\"ion-margin-bottom\">\n      <ion-col size=\"12\">\n        <ion-item lines=\"true\" mode=\"ios\">\n          <ion-button fill=\"clear\"  (click)=\"categorie.expand=!categorie.expand\">\n            <ion-icon slot=\"icon-only\" name=\"ios-arrow-forward\" *ngIf=\"!categorie.expand\"></ion-icon>\n            <ion-icon slot=\"icon-only\" name=\"ios-arrow-down\"  *ngIf=\"categorie.expand\"></ion-icon>\n          </ion-button>\n          <ion-label>{{categorie.nom}}  \n            <ion-badge>{{(produits|filterBy:'categorieId':categorie.id|searchBy:data.searchValue).length}}</ion-badge>\n          </ion-label>\n      \n        </ion-item>\n        <div *ngIf=\"categorie.expand\" class=\"container\">\n          <ion-slides mode=\"ios\" pager=\"ios\" scrollbar=\"ios\">\n            <ion-slide *ngFor=\"let produit of produits|filterBy:'categorieId':categorie.id|sortBy:'asc':['nom', 'prenom']|searchBy:data.searchValue\">\n             <ion-card mode=\"ios\">\n              <div class=\"img\">\n                <img src=\"{{produit.photo}}\">\n              </div>\n               <ion-card-header>\n                <ion-card-title color=\"secondary\">{{produit.nom}}</ion-card-title>\n                 <ion-card-subtitle color=\"danger\" >{{produit.quantite}} X {{produit.prixUnitaireVente}} F CFA</ion-card-subtitle>\n               </ion-card-header>\n               <ion-card-content>\n                <ion-item>\n                  <ion-input type=\"number\" [(ngModel)]=\"produit.quantite\" ></ion-input>\n                  <ion-button (click)=\"onAdd(produit.id, produit.prixUnitaireVente,produit.quantite)\" expand=\"block\"  shape=\"round\">\n                    <ion-icon slot=\"icon-only\" name=\"add\"></ion-icon>\n                  </ion-button>\n                </ion-item>\n               </ion-card-content>\n             </ion-card>\n            </ion-slide>\n          </ion-slides>\n          <ion-text color=\"danger\" *ngIf=\"(produits|filterBy:'categorieId':categorie.id|searchBy:data.searchValue).length===0\" >\n            <p>Aucune produit trouvée!</p>\n          </ion-text>\n        </div>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n    <ion-text color=\"danger\" *ngIf=\"categories.length===0\">\n      <p>Aucune categorie de produit! Veuillez ajouter une categorie de produit!</p>\n    </ion-text>\n</ion-content>";
+    __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n    <ion-title>\n      Table {{numeroTable}}\n    </ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"onClose()\">\n        <ion-icon slot=\"icon-only\" name=\"close\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content  mode=\"ios\">\n  <ion-grid fixed>\n    <ion-row>\n      <ion-col size=\"6\">\n        <ion-item>\n          <ion-label>Type</ion-label>\n          <ion-select [(ngModel)]=\"typeClient\" [ngModelOptions]=\"{standalone: true}\">\n            <ion-select-option value=\"anonyme\">Anonyme</ion-select-option>\n            <ion-select-option value=\"client\">Client</ion-select-option>\n            <ion-select-option value=\"chambre\">Chambre</ion-select-option>\n          </ion-select>\n        </ion-item>\n      </ion-col>\n      <ion-col size=\"6\">\n        <ion-item *ngIf=\"typeClient==='client'\">\n          <ion-label>Nom</ion-label>\n          <ion-select [(ngModel)]=\"clientId\" [ngModelOptions]=\"{standalone: true}\">\n            <ion-select-option *ngFor=\"let client of clients\" value=\"client.id\">{{client.nom}} {{client.prenom}}</ion-select-option>\n          </ion-select>\n        </ion-item>\n        <ion-item *ngIf=\"typeClient==='chambre'\">\n          <ion-label>Numero</ion-label>\n          <ion-select [(ngModel)]=\"chambreId\" [ngModelOptions]=\"{standalone: true}\">\n            <ion-select-option *ngFor=\"let chambre of chambres\" value=\"chambre.id\">{{chambre.numero}}</ion-select-option>\n          </ion-select>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n    <ion-row *ngFor=\"let categorie of categories|sortBy:'asc':['nom']\" class=\"ion-margin-bottom\">\n      <ion-col size=\"12\">\n        <ion-item lines=\"true\" mode=\"ios\">\n          <ion-button fill=\"clear\"  (click)=\"categorie.expand=!categorie.expand\">\n            <ion-icon slot=\"icon-only\" name=\"chevron-forward-outline\" *ngIf=\"!categorie.expand\"></ion-icon>\n            <ion-icon slot=\"icon-only\" name=\"chevron-down-outline\"  *ngIf=\"categorie.expand\"></ion-icon>\n          </ion-button>\n          <ion-label>{{categorie.nom}}  \n            <ion-badge>{{(produits|filterBy:'categorieId':categorie.id|searchBy:data.searchValue).length}}</ion-badge>\n          </ion-label>\n      \n        </ion-item>\n        <div *ngIf=\"categorie.expand\" class=\"container\">\n          <ion-slides mode=\"ios\" pager=\"ios\" scrollbar=\"ios\">\n            <ion-slide *ngFor=\"let produit of produits|filterBy:'categorieId':categorie.id|sortBy:'asc':['nom', 'prenom']|searchBy:data.searchValue\">\n             <ion-card mode=\"ios\">\n              <div class=\"img\">\n                <img src=\"{{produit.photo}}\">\n              </div>\n               <ion-card-header>\n                <ion-card-title color=\"secondary\">{{produit.nom}}</ion-card-title>\n                 <ion-card-subtitle color=\"danger\" >{{produit.quantite}} X {{produit.prixUnitaireVente}} F CFA</ion-card-subtitle>\n               </ion-card-header>\n               <ion-card-content>\n                <ion-item>\n                  <ion-input type=\"number\" [(ngModel)]=\"produit.quantite\" ></ion-input>\n                  <ion-button (click)=\"onAdd(produit.id, produit.prixUnitaireVente,produit.quantite)\" expand=\"block\"  shape=\"round\">\n                    <ion-icon slot=\"icon-only\" name=\"add\"></ion-icon>\n                  </ion-button>\n                </ion-item>\n               </ion-card-content>\n             </ion-card>\n            </ion-slide>\n          </ion-slides>\n          <ion-text color=\"danger\" *ngIf=\"(produits|filterBy:'categorieId':categorie.id|searchBy:data.searchValue).length===0\" >\n            <p>Aucune produit trouvée!</p>\n          </ion-text>\n        </div>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n    <ion-text color=\"danger\" *ngIf=\"categories.length===0\">\n      <p>Aucune categorie de produit! Veuillez ajouter une categorie de produit!</p>\n    </ion-text>\n</ion-content>";
     /***/
   },
 
@@ -1771,12 +1771,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var _components_client_profil_client_profil_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(
     /*! ./components/client-profil/client-profil.component */
-    "./src/app/components/client-profil/client-profil.component.ts"); // http://ennahotel.eu-4.evennode.com/
-    // 'http://192.168.1.70:3000/'
+    "./src/app/components/client-profil/client-profil.component.ts"); // const url = "http://ennahotel.eu-4.evennode.com/";
+    // const url = 'http://192.168.1.70:3000/';
 
 
+    var url = 'http://localhost:3000/';
     var config = {
-      url: 'http://ennahotel.eu-4.evennode.com/',
+      url: url,
       options: {}
     };
     var components = [_components_fonction_form_fonction_form_component__WEBPACK_IMPORTED_MODULE_10__["FonctionFormComponent"], _components_fonction_profil_fonction_profil_component__WEBPACK_IMPORTED_MODULE_12__["FonctionProfilComponent"], _components_user_form_user_form_component__WEBPACK_IMPORTED_MODULE_13__["UserFormComponent"], _components_user_profil_user_profil_component__WEBPACK_IMPORTED_MODULE_14__["UserProfilComponent"], _components_type_form_type_form_component__WEBPACK_IMPORTED_MODULE_16__["TypeFormComponent"], _components_type_profil_type_profil_component__WEBPACK_IMPORTED_MODULE_15__["TypeProfilComponent"], _components_chambre_form_chambre_form_component__WEBPACK_IMPORTED_MODULE_17__["ChambreFormComponent"], _components_chambre_profil_chambre_profil_component__WEBPACK_IMPORTED_MODULE_18__["ChambreProfilComponent"], _components_categorie_form_categorie_form_component__WEBPACK_IMPORTED_MODULE_19__["CategorieFormComponent"], _components_categorie_profil_categorie_profil_component__WEBPACK_IMPORTED_MODULE_20__["CategorieProfilComponent"], _components_produit_form_produit_form_component__WEBPACK_IMPORTED_MODULE_21__["ProduitFormComponent"], _components_produit_profil_produit_profil_component__WEBPACK_IMPORTED_MODULE_22__["ProduitProfilComponent"], _components_intrant_form_intrant_form_component__WEBPACK_IMPORTED_MODULE_24__["IntrantFormComponent"], _components_intrant_profil_intrant_profil_component__WEBPACK_IMPORTED_MODULE_23__["IntrantProfilComponent"], _components_propriete_form_propriete_form_component__WEBPACK_IMPORTED_MODULE_25__["ProprieteFormComponent"], _components_entree_form_entree_form_component__WEBPACK_IMPORTED_MODULE_26__["EntreeFormComponent"], _components_entree_profil_entree_profil_component__WEBPACK_IMPORTED_MODULE_27__["EntreeProfilComponent"], _components_sortie_form_sortie_form_component__WEBPACK_IMPORTED_MODULE_28__["SortieFormComponent"], _components_sortie_profil_sortie_profil_component__WEBPACK_IMPORTED_MODULE_34__["SortieProfilComponent"], _components_control_form_control_form_component__WEBPACK_IMPORTED_MODULE_29__["ControlFormComponent"], _components_control_profil_control_profil_component__WEBPACK_IMPORTED_MODULE_30__["ControlProfilComponent"], _components_fournisseur_form_fournisseur_form_component__WEBPACK_IMPORTED_MODULE_32__["FournisseurFormComponent"], _components_fournisseur_profil_fournisseur_profil_component__WEBPACK_IMPORTED_MODULE_31__["FournisseurProfilComponent"], _components_table_form_table_form_component__WEBPACK_IMPORTED_MODULE_35__["TableFormComponent"], _components_table_profil_table_profil_component__WEBPACK_IMPORTED_MODULE_36__["TableProfilComponent"], _components_consommation_form_consommation_form_component__WEBPACK_IMPORTED_MODULE_37__["ConsommationFormComponent"], _components_consommation_profil_consommation_profil_component__WEBPACK_IMPORTED_MODULE_38__["ConsommationProfilComponent"], _components_client_form_client_form_component__WEBPACK_IMPORTED_MODULE_39__["ClientFormComponent"], _components_client_profil_client_profil_component__WEBPACK_IMPORTED_MODULE_40__["ClientProfilComponent"]];
@@ -2050,7 +2051,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "ion-list {\n  width: 100% !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9jaGFtYnJlLWZvcm0vQzpcXFVzZXJzXFxBcm9hbVxcRGVza3RvcFxcaG90ZWwvc3JjXFxhcHBcXGNvbXBvbmVudHNcXGNoYW1icmUtZm9ybVxcY2hhbWJyZS1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL2NoYW1icmUtZm9ybS9jaGFtYnJlLWZvcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxzQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9jaGFtYnJlLWZvcm0vY2hhbWJyZS1mb3JtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWxpc3R7XHJcbiAgICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xyXG59XHJcbiIsImlvbi1saXN0IHtcbiAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcbn0iXX0= */";
+    __webpack_exports__["default"] = "ion-list {\n  width: 100% !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9jaGFtYnJlLWZvcm0vQzpcXFVzZXJzXFxBcm9hbVxcRGVza3RvcFxcaG90ZWwtZnJvbnRlbmQvc3JjXFxhcHBcXGNvbXBvbmVudHNcXGNoYW1icmUtZm9ybVxcY2hhbWJyZS1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL2NoYW1icmUtZm9ybS9jaGFtYnJlLWZvcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxzQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9jaGFtYnJlLWZvcm0vY2hhbWJyZS1mb3JtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWxpc3R7XHJcbiAgICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xyXG59XHJcbiIsImlvbi1saXN0IHtcbiAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcbn0iXX0= */";
     /***/
   },
 
@@ -2558,21 +2559,113 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! @angular/core */
     "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/forms */
+    "./node_modules/@angular/forms/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @ionic/angular */
+    "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
+    /* harmony import */
+
+
+    var src_app_services_location_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! src/app/services/location.service */
+    "./src/app/services/location.service.ts");
 
     var ClientFormComponent =
     /*#__PURE__*/
     function () {
-      function ClientFormComponent() {
+      function ClientFormComponent(popoverController, navParams, locationService) {
         _classCallCheck(this, ClientFormComponent);
+
+        this.popoverController = popoverController;
+        this.navParams = navParams;
+        this.locationService = locationService;
+        this.title = "Ajout de client";
       }
 
       _createClass(ClientFormComponent, [{
         key: "ngOnInit",
-        value: function ngOnInit() {}
+        value: function ngOnInit() {
+          var id = this.navParams.get('id');
+          var isIntrant = this.navParams.get('isIntrant');
+
+          if (id) {
+            var item = this.locationService.getClient(id);
+            this.title = item.nom;
+            this.initForm(item);
+          } else this.initForm({
+            id: null,
+            nom: '',
+            penom: '',
+            contact1: '',
+            contact2: '',
+            adresse: ''
+          });
+        }
+      }, {
+        key: "initForm",
+        value: function initForm(item) {
+          this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
+            id: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](item.id),
+            nom: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](item.nom, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+            prenom: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](item.prenom),
+            contact1: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](item.contact1, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(8)]),
+            contact2: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](item.contact2),
+            adresse: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](item.adresse, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(2)])
+          });
+        }
+      }, {
+        key: "onSubmit",
+        value: function onSubmit() {
+          this.form.value.nom = this.form.value.nom.toUpperCase();
+          this.onClose(this.form.value);
+        }
+      }, {
+        key: "onClose",
+        value: function onClose(data) {
+          this.popoverController.dismiss(data);
+        }
+      }, {
+        key: "nom",
+        get: function get() {
+          return this.form.get('nom');
+        }
+      }, {
+        key: "prenom",
+        get: function get() {
+          return this.form.get('prenom');
+        }
+      }, {
+        key: "contact1",
+        get: function get() {
+          return this.form.get('contact1');
+        }
+      }, {
+        key: "adresse",
+        get: function get() {
+          return this.form.get('adresse');
+        }
       }]);
 
       return ClientFormComponent;
     }();
+
+    ClientFormComponent.ctorParameters = function () {
+      return [{
+        type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["PopoverController"]
+      }, {
+        type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavParams"]
+      }, {
+        type: src_app_services_location_service__WEBPACK_IMPORTED_MODULE_4__["LocationService"]
+      }];
+    };
 
     ClientFormComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
       selector: 'app-client-form',
@@ -2582,7 +2675,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! ./client-form.component.scss */
       "./src/app/components/client-form/client-form.component.scss")).default]
-    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])], ClientFormComponent);
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["PopoverController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavParams"], src_app_services_location_service__WEBPACK_IMPORTED_MODULE_4__["LocationService"]])], ClientFormComponent);
     /***/
   },
 
@@ -2681,7 +2774,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".img {\n  height: 170px;\n  width: 100%;\n}\n.img img {\n  height: 100%;\n  width: 100%;\n}\nion-card {\n  width: 220px;\n  height: 300px;\n  background-color: white;\n}\n.container {\n  background-color: rgba(0, 100, 255, 0.1);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9jb25zb21tYXRpb24tZm9ybS9DOlxcVXNlcnNcXEFyb2FtXFxEZXNrdG9wXFxob3RlbC9zcmNcXGFwcFxcY29tcG9uZW50c1xcY29uc29tbWF0aW9uLWZvcm1cXGNvbnNvbW1hdGlvbi1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL2NvbnNvbW1hdGlvbi1mb3JtL2NvbnNvbW1hdGlvbi1mb3JtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksYUFBQTtFQUNBLFdBQUE7QUNDSjtBREFJO0VBQ0ksWUFBQTtFQUNBLFdBQUE7QUNFUjtBREVBO0VBQ0ksWUFBQTtFQUNBLGFBQUE7RUFDQSx1QkFBQTtBQ0NKO0FERUE7RUFDSSx3Q0FBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9jb25zb21tYXRpb24tZm9ybS9jb25zb21tYXRpb24tZm9ybS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5pbWd7XHJcbiAgICBoZWlnaHQ6IDE3MHB4O1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBpbWd7XHJcbiAgICAgICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgfVxyXG59XHJcblxyXG5pb24tY2FyZHtcclxuICAgIHdpZHRoOiAyMjBweDtcclxuICAgIGhlaWdodDogMzAwcHg7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxufVxyXG5cclxuLmNvbnRhaW5lcntcclxuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwxMDAsMjU1LDAuMSk7XHJcbn0iLCIuaW1nIHtcbiAgaGVpZ2h0OiAxNzBweDtcbiAgd2lkdGg6IDEwMCU7XG59XG4uaW1nIGltZyB7XG4gIGhlaWdodDogMTAwJTtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbmlvbi1jYXJkIHtcbiAgd2lkdGg6IDIyMHB4O1xuICBoZWlnaHQ6IDMwMHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbn1cblxuLmNvbnRhaW5lciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwgMTAwLCAyNTUsIDAuMSk7XG59Il19 */";
+    __webpack_exports__["default"] = ".img {\n  height: 170px;\n  width: 100%;\n}\n.img img {\n  height: 100%;\n  width: 100%;\n}\nion-card {\n  width: 220px;\n  height: 300px;\n  background-color: white;\n}\n.container {\n  background-color: rgba(0, 100, 255, 0.1);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9jb25zb21tYXRpb24tZm9ybS9DOlxcVXNlcnNcXEFyb2FtXFxEZXNrdG9wXFxob3RlbC1mcm9udGVuZC9zcmNcXGFwcFxcY29tcG9uZW50c1xcY29uc29tbWF0aW9uLWZvcm1cXGNvbnNvbW1hdGlvbi1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL2NvbnNvbW1hdGlvbi1mb3JtL2NvbnNvbW1hdGlvbi1mb3JtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksYUFBQTtFQUNBLFdBQUE7QUNDSjtBREFJO0VBQ0ksWUFBQTtFQUNBLFdBQUE7QUNFUjtBREVBO0VBQ0ksWUFBQTtFQUNBLGFBQUE7RUFDQSx1QkFBQTtBQ0NKO0FERUE7RUFDSSx3Q0FBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9jb25zb21tYXRpb24tZm9ybS9jb25zb21tYXRpb24tZm9ybS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5pbWd7XHJcbiAgICBoZWlnaHQ6IDE3MHB4O1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBpbWd7XHJcbiAgICAgICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgfVxyXG59XHJcblxyXG5pb24tY2FyZHtcclxuICAgIHdpZHRoOiAyMjBweDtcclxuICAgIGhlaWdodDogMzAwcHg7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxufVxyXG5cclxuLmNvbnRhaW5lcntcclxuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwxMDAsMjU1LDAuMSk7XHJcbn0iLCIuaW1nIHtcbiAgaGVpZ2h0OiAxNzBweDtcbiAgd2lkdGg6IDEwMCU7XG59XG4uaW1nIGltZyB7XG4gIGhlaWdodDogMTAwJTtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbmlvbi1jYXJkIHtcbiAgd2lkdGg6IDIyMHB4O1xuICBoZWlnaHQ6IDMwMHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbn1cblxuLmNvbnRhaW5lciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwgMTAwLCAyNTUsIDAuMSk7XG59Il19 */";
     /***/
   },
 
@@ -2740,19 +2833,34 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var src_app_services_consommation_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! src/app/services/consommation.service */
     "./src/app/services/consommation.service.ts");
+    /* harmony import */
+
+
+    var src_app_services_location_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! src/app/services/location.service */
+    "./src/app/services/location.service.ts");
+    /* harmony import */
+
+
+    var src_app_services_chambre_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! src/app/services/chambre.service */
+    "./src/app/services/chambre.service.ts");
 
     var ConsommationFormComponent =
     /*#__PURE__*/
     function () {
-      function ConsommationFormComponent(modalController, produitService, navParams, consommationService, data) {
+      function ConsommationFormComponent(modalController, produitService, navParams, consommationService, locationService, chambreService, data) {
         _classCallCheck(this, ConsommationFormComponent);
 
         this.modalController = modalController;
         this.produitService = produitService;
         this.navParams = navParams;
         this.consommationService = consommationService;
+        this.locationService = locationService;
+        this.chambreService = chambreService;
         this.data = data;
         this.produitsArray = [];
+        this.typeClient = 'anonyme';
       }
 
       _createClass(ConsommationFormComponent, [{
@@ -2772,7 +2880,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               return item;
             });
           });
-          var tableId = this.navParams.get('tableId');
+          this.clientSubscription = this.locationService.getClients().subscribe(function (res) {
+            _this6.clients = res;
+          });
+          this.chambreSubscription = this.chambreService.getChambres().subscribe(function (res) {
+            _this6.chambres = res;
+          });
+          this.numeroTable = this.navParams.get('numeroTable');
           this.consommationId = this.navParams.get('consommationId');
 
           if (this.consommationId) {
@@ -2822,7 +2936,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "onClose",
         value: function onClose() {
-          this.modalController.dismiss(this.produitsArray);
+          if (this.typeClient === "client") this.chambreId = null;else if (this.typeClient === "anonyme") {
+            this.chambreId = null;
+            this.clientId = null;
+          } else if (this.typeClient === "chambre") this.clientId = null;
+          this.modalController.dismiss({
+            consommation: {
+              clientId: this.clientId,
+              chambreId: this.chambreId
+            },
+            produits: this.produitsArray
+          });
         }
       }]);
 
@@ -2839,6 +2963,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         type: src_app_services_consommation_service__WEBPACK_IMPORTED_MODULE_5__["ConsommationService"]
       }, {
+        type: src_app_services_location_service__WEBPACK_IMPORTED_MODULE_6__["LocationService"]
+      }, {
+        type: src_app_services_chambre_service__WEBPACK_IMPORTED_MODULE_7__["ChambreService"]
+      }, {
         type: src_app_services_data_service__WEBPACK_IMPORTED_MODULE_3__["DataService"]
       }];
     };
@@ -2851,7 +2979,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! ./consommation-form.component.scss */
       "./src/app/components/consommation-form/consommation-form.component.scss")).default]
-    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"], src_app_services_produit_service__WEBPACK_IMPORTED_MODULE_2__["ProduitService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavParams"], src_app_services_consommation_service__WEBPACK_IMPORTED_MODULE_5__["ConsommationService"], src_app_services_data_service__WEBPACK_IMPORTED_MODULE_3__["DataService"]])], ConsommationFormComponent);
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"], src_app_services_produit_service__WEBPACK_IMPORTED_MODULE_2__["ProduitService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavParams"], src_app_services_consommation_service__WEBPACK_IMPORTED_MODULE_5__["ConsommationService"], src_app_services_location_service__WEBPACK_IMPORTED_MODULE_6__["LocationService"], src_app_services_chambre_service__WEBPACK_IMPORTED_MODULE_7__["ChambreService"], src_app_services_data_service__WEBPACK_IMPORTED_MODULE_3__["DataService"]])], ConsommationFormComponent);
     /***/
   },
 
@@ -3191,7 +3319,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".bg-blue {\n  background-color: #b5b6ec;\n}\n\n.search-box {\n  margin-top: 3px;\n  background: #e4e1e1;\n  position: absolute;\n  left: 4%;\n  width: 27%;\n  max-height: 200px;\n  overflow-y: auto;\n  z-index: 2000;\n}\n\n.search-box ion-row {\n  cursor: -webkit-grab;\n  cursor: grab;\n  border-bottom: 1px white;\n}\n\n.search-box ion-row:hover {\n  background-color: white;\n  color: grey;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9lbnRyZWUtZm9ybS9DOlxcVXNlcnNcXEFyb2FtXFxEZXNrdG9wXFxob3RlbC9zcmNcXGFwcFxcY29tcG9uZW50c1xcZW50cmVlLWZvcm1cXGVudHJlZS1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL2VudHJlZS1mb3JtL2VudHJlZS1mb3JtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0kseUJBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsUUFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGdCQUFBO0VBQ0EsYUFBQTtBQ0NKOztBREFJO0VBQ0ksb0JBQUE7RUFBQSxZQUFBO0VBQ0Esd0JBQUE7QUNFUjs7QURBSTtFQUNJLHVCQUFBO0VBQ0EsV0FBQTtBQ0VSIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9lbnRyZWUtZm9ybS9lbnRyZWUtZm9ybS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iZy1ibHVle1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2I1YjZlYztcclxufVxyXG5cclxuLnNlYXJjaC1ib3h7XHJcbiAgICBtYXJnaW4tdG9wOiAzcHg7XHJcbiAgICBiYWNrZ3JvdW5kOiByZ2IoMjI4LCAyMjUsIDIyNSk7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICBsZWZ0OiA0JTtcclxuICAgIHdpZHRoOiAyNyU7XHJcbiAgICBtYXgtaGVpZ2h0OiAyMDBweDtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbiAgICB6LWluZGV4OiAyMDAwO1xyXG4gICAgaW9uLXJvd3tcclxuICAgICAgICBjdXJzb3I6IGdyYWI7XHJcbiAgICAgICAgYm9yZGVyLWJvdHRvbTogMXB4IHdoaXRlO1xyXG4gICAgfVxyXG4gICAgaW9uLXJvdzpob3ZlcntcclxuICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxuICAgICAgICBjb2xvcjogZ3JleTtcclxuICAgIH1cclxufSIsIi5iZy1ibHVlIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2I1YjZlYztcbn1cblxuLnNlYXJjaC1ib3gge1xuICBtYXJnaW4tdG9wOiAzcHg7XG4gIGJhY2tncm91bmQ6ICNlNGUxZTE7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbGVmdDogNCU7XG4gIHdpZHRoOiAyNyU7XG4gIG1heC1oZWlnaHQ6IDIwMHB4O1xuICBvdmVyZmxvdy15OiBhdXRvO1xuICB6LWluZGV4OiAyMDAwO1xufVxuLnNlYXJjaC1ib3ggaW9uLXJvdyB7XG4gIGN1cnNvcjogZ3JhYjtcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHdoaXRlO1xufVxuLnNlYXJjaC1ib3ggaW9uLXJvdzpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICBjb2xvcjogZ3JleTtcbn0iXX0= */";
+    __webpack_exports__["default"] = ".bg-blue {\n  background-color: #b5b6ec;\n}\n\n.search-box {\n  margin-top: 3px;\n  background: #e4e1e1;\n  position: absolute;\n  left: 4%;\n  width: 27%;\n  max-height: 200px;\n  overflow-y: auto;\n  z-index: 2000;\n}\n\n.search-box ion-row {\n  cursor: -webkit-grab;\n  cursor: grab;\n  border-bottom: 1px white;\n}\n\n.search-box ion-row:hover {\n  background-color: white;\n  color: grey;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9lbnRyZWUtZm9ybS9DOlxcVXNlcnNcXEFyb2FtXFxEZXNrdG9wXFxob3RlbC1mcm9udGVuZC9zcmNcXGFwcFxcY29tcG9uZW50c1xcZW50cmVlLWZvcm1cXGVudHJlZS1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL2VudHJlZS1mb3JtL2VudHJlZS1mb3JtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0kseUJBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsUUFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGdCQUFBO0VBQ0EsYUFBQTtBQ0NKOztBREFJO0VBQ0ksb0JBQUE7RUFBQSxZQUFBO0VBQ0Esd0JBQUE7QUNFUjs7QURBSTtFQUNJLHVCQUFBO0VBQ0EsV0FBQTtBQ0VSIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9lbnRyZWUtZm9ybS9lbnRyZWUtZm9ybS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iZy1ibHVle1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2I1YjZlYztcclxufVxyXG5cclxuLnNlYXJjaC1ib3h7XHJcbiAgICBtYXJnaW4tdG9wOiAzcHg7XHJcbiAgICBiYWNrZ3JvdW5kOiByZ2IoMjI4LCAyMjUsIDIyNSk7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICBsZWZ0OiA0JTtcclxuICAgIHdpZHRoOiAyNyU7XHJcbiAgICBtYXgtaGVpZ2h0OiAyMDBweDtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbiAgICB6LWluZGV4OiAyMDAwO1xyXG4gICAgaW9uLXJvd3tcclxuICAgICAgICBjdXJzb3I6IGdyYWI7XHJcbiAgICAgICAgYm9yZGVyLWJvdHRvbTogMXB4IHdoaXRlO1xyXG4gICAgfVxyXG4gICAgaW9uLXJvdzpob3ZlcntcclxuICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxuICAgICAgICBjb2xvcjogZ3JleTtcclxuICAgIH1cclxufSIsIi5iZy1ibHVlIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2I1YjZlYztcbn1cblxuLnNlYXJjaC1ib3gge1xuICBtYXJnaW4tdG9wOiAzcHg7XG4gIGJhY2tncm91bmQ6ICNlNGUxZTE7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbGVmdDogNCU7XG4gIHdpZHRoOiAyNyU7XG4gIG1heC1oZWlnaHQ6IDIwMHB4O1xuICBvdmVyZmxvdy15OiBhdXRvO1xuICB6LWluZGV4OiAyMDAwO1xufVxuLnNlYXJjaC1ib3ggaW9uLXJvdyB7XG4gIGN1cnNvcjogZ3JhYjtcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHdoaXRlO1xufVxuLnNlYXJjaC1ib3ggaW9uLXJvdzpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICBjb2xvcjogZ3JleTtcbn0iXX0= */";
     /***/
   },
 
@@ -4416,7 +4544,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "ion-list {\n  width: 100% !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9wcm9kdWl0LWZvcm0vQzpcXFVzZXJzXFxBcm9hbVxcRGVza3RvcFxcaG90ZWwvc3JjXFxhcHBcXGNvbXBvbmVudHNcXHByb2R1aXQtZm9ybVxccHJvZHVpdC1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3Byb2R1aXQtZm9ybS9wcm9kdWl0LWZvcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxzQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9wcm9kdWl0LWZvcm0vcHJvZHVpdC1mb3JtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWxpc3R7XHJcbiAgICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xyXG59XHJcbiIsImlvbi1saXN0IHtcbiAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcbn0iXX0= */";
+    __webpack_exports__["default"] = "ion-list {\n  width: 100% !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9wcm9kdWl0LWZvcm0vQzpcXFVzZXJzXFxBcm9hbVxcRGVza3RvcFxcaG90ZWwtZnJvbnRlbmQvc3JjXFxhcHBcXGNvbXBvbmVudHNcXHByb2R1aXQtZm9ybVxccHJvZHVpdC1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3Byb2R1aXQtZm9ybS9wcm9kdWl0LWZvcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxzQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9wcm9kdWl0LWZvcm0vcHJvZHVpdC1mb3JtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWxpc3R7XHJcbiAgICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xyXG59XHJcbiIsImlvbi1saXN0IHtcbiAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcbn0iXX0= */";
     /***/
   },
 
@@ -4917,7 +5045,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".bg-blue {\n  background-color: #b5b6ec;\n}\n\n.search-box {\n  margin-top: 3px;\n  background: #e4e1e1;\n  position: absolute;\n  left: 4%;\n  width: 47%;\n  max-height: 200px;\n  overflow-y: auto;\n  z-index: 2000;\n}\n\n.search-box ion-row {\n  cursor: -webkit-grab;\n  cursor: grab;\n  border-bottom: 1px white;\n}\n\n.search-box ion-row:hover {\n  background-color: white;\n  color: grey;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zb3J0aWUtZm9ybS9DOlxcVXNlcnNcXEFyb2FtXFxEZXNrdG9wXFxob3RlbC9zcmNcXGFwcFxcY29tcG9uZW50c1xcc29ydGllLWZvcm1cXHNvcnRpZS1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3NvcnRpZS1mb3JtL3NvcnRpZS1mb3JtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0kseUJBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsUUFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGdCQUFBO0VBQ0EsYUFBQTtBQ0NKOztBREFJO0VBQ0ksb0JBQUE7RUFBQSxZQUFBO0VBQ0Esd0JBQUE7QUNFUjs7QURBSTtFQUNJLHVCQUFBO0VBQ0EsV0FBQTtBQ0VSIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9zb3J0aWUtZm9ybS9zb3J0aWUtZm9ybS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iZy1ibHVle1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2I1YjZlYztcclxufVxyXG5cclxuLnNlYXJjaC1ib3h7XHJcbiAgICBtYXJnaW4tdG9wOiAzcHg7XHJcbiAgICBiYWNrZ3JvdW5kOiByZ2IoMjI4LCAyMjUsIDIyNSk7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICBsZWZ0OiA0JTtcclxuICAgIHdpZHRoOiA0NyU7XHJcbiAgICBtYXgtaGVpZ2h0OiAyMDBweDtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbiAgICB6LWluZGV4OiAyMDAwO1xyXG4gICAgaW9uLXJvd3tcclxuICAgICAgICBjdXJzb3I6IGdyYWI7XHJcbiAgICAgICAgYm9yZGVyLWJvdHRvbTogMXB4IHdoaXRlO1xyXG4gICAgfVxyXG4gICAgaW9uLXJvdzpob3ZlcntcclxuICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxuICAgICAgICBjb2xvcjogZ3JleTtcclxuICAgIH1cclxufSIsIi5iZy1ibHVlIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2I1YjZlYztcbn1cblxuLnNlYXJjaC1ib3gge1xuICBtYXJnaW4tdG9wOiAzcHg7XG4gIGJhY2tncm91bmQ6ICNlNGUxZTE7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbGVmdDogNCU7XG4gIHdpZHRoOiA0NyU7XG4gIG1heC1oZWlnaHQ6IDIwMHB4O1xuICBvdmVyZmxvdy15OiBhdXRvO1xuICB6LWluZGV4OiAyMDAwO1xufVxuLnNlYXJjaC1ib3ggaW9uLXJvdyB7XG4gIGN1cnNvcjogZ3JhYjtcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHdoaXRlO1xufVxuLnNlYXJjaC1ib3ggaW9uLXJvdzpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICBjb2xvcjogZ3JleTtcbn0iXX0= */";
+    __webpack_exports__["default"] = ".bg-blue {\n  background-color: #b5b6ec;\n}\n\n.search-box {\n  margin-top: 3px;\n  background: #e4e1e1;\n  position: absolute;\n  left: 4%;\n  width: 47%;\n  max-height: 200px;\n  overflow-y: auto;\n  z-index: 2000;\n}\n\n.search-box ion-row {\n  cursor: -webkit-grab;\n  cursor: grab;\n  border-bottom: 1px white;\n}\n\n.search-box ion-row:hover {\n  background-color: white;\n  color: grey;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zb3J0aWUtZm9ybS9DOlxcVXNlcnNcXEFyb2FtXFxEZXNrdG9wXFxob3RlbC1mcm9udGVuZC9zcmNcXGFwcFxcY29tcG9uZW50c1xcc29ydGllLWZvcm1cXHNvcnRpZS1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3NvcnRpZS1mb3JtL3NvcnRpZS1mb3JtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0kseUJBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsUUFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGdCQUFBO0VBQ0EsYUFBQTtBQ0NKOztBREFJO0VBQ0ksb0JBQUE7RUFBQSxZQUFBO0VBQ0Esd0JBQUE7QUNFUjs7QURBSTtFQUNJLHVCQUFBO0VBQ0EsV0FBQTtBQ0VSIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9zb3J0aWUtZm9ybS9zb3J0aWUtZm9ybS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iZy1ibHVle1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2I1YjZlYztcclxufVxyXG5cclxuLnNlYXJjaC1ib3h7XHJcbiAgICBtYXJnaW4tdG9wOiAzcHg7XHJcbiAgICBiYWNrZ3JvdW5kOiByZ2IoMjI4LCAyMjUsIDIyNSk7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICBsZWZ0OiA0JTtcclxuICAgIHdpZHRoOiA0NyU7XHJcbiAgICBtYXgtaGVpZ2h0OiAyMDBweDtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbiAgICB6LWluZGV4OiAyMDAwO1xyXG4gICAgaW9uLXJvd3tcclxuICAgICAgICBjdXJzb3I6IGdyYWI7XHJcbiAgICAgICAgYm9yZGVyLWJvdHRvbTogMXB4IHdoaXRlO1xyXG4gICAgfVxyXG4gICAgaW9uLXJvdzpob3ZlcntcclxuICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxuICAgICAgICBjb2xvcjogZ3JleTtcclxuICAgIH1cclxufSIsIi5iZy1ibHVlIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2I1YjZlYztcbn1cblxuLnNlYXJjaC1ib3gge1xuICBtYXJnaW4tdG9wOiAzcHg7XG4gIGJhY2tncm91bmQ6ICNlNGUxZTE7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbGVmdDogNCU7XG4gIHdpZHRoOiA0NyU7XG4gIG1heC1oZWlnaHQ6IDIwMHB4O1xuICBvdmVyZmxvdy15OiBhdXRvO1xuICB6LWluZGV4OiAyMDAwO1xufVxuLnNlYXJjaC1ib3ggaW9uLXJvdyB7XG4gIGN1cnNvcjogZ3JhYjtcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHdoaXRlO1xufVxuLnNlYXJjaC1ib3ggaW9uLXJvdzpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICBjb2xvcjogZ3JleTtcbn0iXX0= */";
     /***/
   },
 
@@ -5885,7 +6013,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "ion-list {\n  width: 100% !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy91c2VyLWZvcm0vQzpcXFVzZXJzXFxBcm9hbVxcRGVza3RvcFxcaG90ZWwvc3JjXFxhcHBcXGNvbXBvbmVudHNcXHVzZXItZm9ybVxcdXNlci1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3VzZXItZm9ybS91c2VyLWZvcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxzQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy91c2VyLWZvcm0vdXNlci1mb3JtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWxpc3R7XHJcbiAgICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xyXG59XHJcbiIsImlvbi1saXN0IHtcbiAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcbn0iXX0= */";
+    __webpack_exports__["default"] = "ion-list {\n  width: 100% !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy91c2VyLWZvcm0vQzpcXFVzZXJzXFxBcm9hbVxcRGVza3RvcFxcaG90ZWwtZnJvbnRlbmQvc3JjXFxhcHBcXGNvbXBvbmVudHNcXHVzZXItZm9ybVxcdXNlci1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3VzZXItZm9ybS91c2VyLWZvcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxzQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy91c2VyLWZvcm0vdXNlci1mb3JtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWxpc3R7XHJcbiAgICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xyXG59XHJcbiIsImlvbi1saXN0IHtcbiAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcbn0iXX0= */";
     /***/
   },
 
@@ -8100,6 +8228,376 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
+  "./src/app/services/location.service.ts":
+  /*!**********************************************!*\
+    !*** ./src/app/services/location.service.ts ***!
+    \**********************************************/
+
+  /*! exports provided: LocationService */
+
+  /***/
+  function srcAppServicesLocationServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "LocationService", function () {
+      return LocationService;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! rxjs */
+    "./node_modules/rxjs/_esm2015/index.js");
+    /* harmony import */
+
+
+    var _api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./api.service */
+    "./src/app/services/api.service.ts");
+
+    var LocationService =
+    /*#__PURE__*/
+    function () {
+      function LocationService(api) {
+        var _this55 = this;
+
+        _classCallCheck(this, LocationService);
+
+        this.api = api;
+        this.clientSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
+        this.clientTrashSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
+        this.locationSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
+        this.locationTrashSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
+        this.api.post('client:all', null).then(function (res) {
+          _this55.clients = res;
+
+          _this55.clientSubject.next(_this55.clients);
+        });
+        this.api.post('client:trash', null).then(function (res) {
+          _this55.clientsTrash = res;
+
+          _this55.clientTrashSubject.next(_this55.clientsTrash);
+        });
+        this.api.post('location:all', null).then(function (res) {
+          _this55.locations = res;
+
+          _this55.locationSubject.next(_this55.locations);
+        });
+        this.api.post('location:trash', null).then(function (res) {
+          _this55.locationsTrash = res;
+
+          _this55.locationTrashSubject.next(_this55.locationsTrash);
+        });
+        this.api.getStreamData().subscribe(function (res) {
+          if (res.operation.model === "Client") {
+            if (res.operation.tableOperation === 'add') {
+              _this55.clients.push(res.data);
+
+              _this55.clientSubject.next(_this55.clients);
+            } else if (res.operation.tableOperation === 'edit') {
+              var i = _this55.clients.findIndex(function (item) {
+                return item.id === res.data.id;
+              });
+
+              _this55.clients[i] = res.data;
+
+              _this55.clientSubject.next(_this55.clients);
+            } else if (res.operation.tableOperation === 'delete') {
+              var _i16 = _this55.clients.findIndex(function (item) {
+                return item.id === res.data.id;
+              });
+
+              _this55.clients.splice(_i16, 1);
+
+              _this55.clientSubject.next(_this55.clients);
+
+              _this55.clientsTrash.push(res.data);
+
+              _this55.clientTrashSubject.next(_this55.clientsTrash);
+
+              _this55.clientSubject.next(_this55.clients);
+            } else if (res.operation.tableOperation === 'restore') {
+              var _i17 = _this55.clientsTrash.findIndex(function (item) {
+                return item.id === res.data.id;
+              });
+
+              _this55.clientsTrash.splice(_i17, 1);
+
+              _this55.clientTrashSubject.next(_this55.clientsTrash);
+
+              _this55.clients.push(res.data);
+
+              _this55.clientSubject.next(_this55.clients);
+            }
+          } else if (res.operation.model === "Location") {
+            if (res.operation.tableOperation === 'add') {
+              _this55.locations.push(res.data);
+
+              _this55.locationSubject.next(_this55.locations);
+            } else if (res.operation.tableOperation === 'edit') {
+              var _i18 = _this55.locations.findIndex(function (item) {
+                return item.id === res.data.id;
+              });
+
+              _this55.locations[_i18] = res.data;
+
+              _this55.locationSubject.next(_this55.locations);
+            } else if (res.operation.tableOperation === 'delete') {
+              var _i19 = _this55.locations.findIndex(function (item) {
+                return item.id === res.data.id;
+              });
+
+              _this55.locations.splice(_i19, 1);
+
+              _this55.locationSubject.next(_this55.locations);
+
+              _this55.locationsTrash.push(res.data);
+
+              _this55.locationTrashSubject.next(_this55.locationsTrash);
+
+              _this55.locationSubject.next(_this55.locations);
+            } else if (res.operation.tableOperation === 'restore') {
+              var _i20 = _this55.locationsTrash.findIndex(function (item) {
+                return item.id === res.data.id;
+              });
+
+              _this55.locationsTrash.splice(_i20, 1);
+
+              _this55.locationTrashSubject.next(_this55.locationsTrash);
+
+              _this55.locations.push(res.data);
+
+              _this55.locationSubject.next(_this55.locations);
+            }
+          }
+        });
+      }
+      /**
+       * client
+       */
+
+
+      _createClass(LocationService, [{
+        key: "getClients",
+        value: function getClients() {
+          return this.clientSubject.asObservable();
+        }
+      }, {
+        key: "getClientsTrash",
+        value: function getClientsTrash() {
+          return this.clientTrashSubject.asObservable();
+        }
+      }, {
+        key: "getClientTrash",
+        value: function getClientTrash(id) {
+          return this.clientsTrash.find(function (item) {
+            return item.id === id;
+          });
+        }
+      }, {
+        key: "getClient",
+        value: function getClient(id) {
+          return this.clients.find(function (item) {
+            return item.id === id;
+          });
+        }
+      }, {
+        key: "addClient",
+        value: function addClient(data) {
+          var _this56 = this;
+
+          return this.api.post('client:add', data).then(function (res) {
+            _this56.clients.push(res);
+
+            _this56.clientSubject.next(_this56.clients);
+          });
+        }
+      }, {
+        key: "editClient",
+        value: function editClient(data) {
+          var _this57 = this;
+
+          return this.api.post('client:edit', data).then(function (res) {
+            var i = _this57.clients.findIndex(function (item) {
+              return item.id === res.id;
+            });
+
+            _this57.clients[i] = res;
+
+            _this57.clientSubject.next(_this57.clients);
+          });
+        }
+      }, {
+        key: "deleteClient",
+        value: function deleteClient(id) {
+          var _this58 = this;
+
+          return this.api.post('client:delete', id).then(function (res) {
+            var i = _this58.clients.findIndex(function (item) {
+              return item.id === res.id;
+            });
+
+            _this58.clients.splice(i, 1);
+
+            _this58.clientSubject.next(_this58.clients);
+
+            _this58.clientsTrash.push(res);
+
+            _this58.clientTrashSubject.next(_this58.clientsTrash);
+          });
+        }
+      }, {
+        key: "restoreClient",
+        value: function restoreClient(id) {
+          var _this59 = this;
+
+          return this.api.post('client:restore', id).then(function (res) {
+            var i = _this59.clientsTrash.findIndex(function (item) {
+              return item.id === res.id;
+            });
+
+            _this59.clientsTrash.splice(i, 1);
+
+            _this59.clientTrashSubject.next(_this59.clientsTrash);
+
+            _this59.clients.push(res);
+
+            _this59.clientSubject.next(_this59.clients);
+          });
+        }
+        /**
+        * location
+        */
+
+      }, {
+        key: "getLocations",
+        value: function getLocations() {
+          return this.locationSubject.asObservable();
+        }
+      }, {
+        key: "getLocationsTrash",
+        value: function getLocationsTrash() {
+          return this.locationTrashSubject.asObservable();
+        }
+      }, {
+        key: "getLocationTrash",
+        value: function getLocationTrash(id) {
+          return this.locationsTrash.find(function (item) {
+            return item.id === id;
+          });
+        }
+      }, {
+        key: "getLocation",
+        value: function getLocation(id) {
+          return this.locations.find(function (item) {
+            return item.id === id;
+          });
+        }
+      }, {
+        key: "getLocationProduits",
+        value: function getLocationProduits(id) {
+          return this.api.post('location:produits', id).then(function (res) {
+            return res;
+          });
+        }
+      }, {
+        key: "addLocation",
+        value: function addLocation(data) {
+          var _this60 = this;
+
+          return this.api.post('location:add', data).then(function (res) {
+            _this60.locations.push(res);
+
+            _this60.locationSubject.next(_this60.locations);
+          });
+        }
+      }, {
+        key: "editLocation",
+        value: function editLocation(data) {
+          var _this61 = this;
+
+          return this.api.post('location:edit', data).then(function (res) {
+            var i = _this61.locations.findIndex(function (item) {
+              return item.id === res.id;
+            });
+
+            _this61.locations[i] = res;
+
+            _this61.locationSubject.next(_this61.locations);
+          });
+        }
+      }, {
+        key: "deleteLocation",
+        value: function deleteLocation(id) {
+          var _this62 = this;
+
+          return this.api.post('location:delete', id).then(function (res) {
+            var i = _this62.locations.findIndex(function (item) {
+              return item.id === res.id;
+            });
+
+            _this62.locations.splice(i, 1);
+
+            _this62.locationSubject.next(_this62.locations);
+
+            _this62.locationsTrash.push(res);
+
+            _this62.locationTrashSubject.next(_this62.locationsTrash);
+          });
+        }
+      }, {
+        key: "restoreLocation",
+        value: function restoreLocation(id) {
+          var _this63 = this;
+
+          return this.api.post('location:restore', id).then(function (res) {
+            var i = _this63.locationsTrash.findIndex(function (item) {
+              return item.id === res.id;
+            });
+
+            _this63.locationsTrash.splice(i, 1);
+
+            _this63.locationTrashSubject.next(_this63.locationsTrash);
+
+            _this63.locations.push(res);
+
+            _this63.locationSubject.next(_this63.locations);
+          });
+        }
+      }]);
+
+      return LocationService;
+    }();
+
+    LocationService.ctorParameters = function () {
+      return [{
+        type: _api_service__WEBPACK_IMPORTED_MODULE_3__["ApiService"]
+      }];
+    };
+
+    LocationService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+      providedIn: 'root'
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_api_service__WEBPACK_IMPORTED_MODULE_3__["ApiService"]])], LocationService);
+    /***/
+  },
+
+  /***/
   "./src/app/services/params.service.ts":
   /*!********************************************!*\
     !*** ./src/app/services/params.service.ts ***!
@@ -8147,7 +8645,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*#__PURE__*/
     function () {
       function ParamsService(api) {
-        var _this55 = this;
+        var _this64 = this;
 
         _classCallCheck(this, ParamsService);
 
@@ -8157,105 +8655,105 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.proprieteSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
         this.proprieteTrashSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
         this.api.post('control:all', null).then(function (res) {
-          _this55.controls = res;
+          _this64.controls = res;
 
-          _this55.controlSubject.next(_this55.controls);
+          _this64.controlSubject.next(_this64.controls);
         });
         this.api.post('control:trash', null).then(function (res) {
-          _this55.controlsTrash = res;
+          _this64.controlsTrash = res;
 
-          _this55.controlTrashSubject.next(_this55.controlsTrash);
+          _this64.controlTrashSubject.next(_this64.controlsTrash);
         });
         this.api.post('propriete:all', null).then(function (res) {
-          _this55.proprietes = res;
+          _this64.proprietes = res;
 
-          _this55.proprieteSubject.next(_this55.proprietes);
+          _this64.proprieteSubject.next(_this64.proprietes);
         });
         this.api.post('propriete:trash', null).then(function (res) {
-          _this55.proprietesTrash = res;
+          _this64.proprietesTrash = res;
 
-          _this55.proprieteTrashSubject.next(_this55.proprietesTrash);
+          _this64.proprieteTrashSubject.next(_this64.proprietesTrash);
         });
         this.api.getStreamData().subscribe(function (res) {
           if (res.operation.model === "control") {
             if (res.operation.typeOperation === 'add') {
-              _this55.controls.push(res.data);
+              _this64.controls.push(res.data);
 
-              _this55.controlSubject.next(_this55.controls);
+              _this64.controlSubject.next(_this64.controls);
             } else if (res.operation.typeOperation === 'edit') {
-              var i = _this55.controls.findIndex(function (item) {
+              var i = _this64.controls.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this55.controls[i] = res.data;
+              _this64.controls[i] = res.data;
 
-              _this55.controlSubject.next(_this55.controls);
+              _this64.controlSubject.next(_this64.controls);
             } else if (res.operation.typeOperation === 'delete') {
-              var _i16 = _this55.controls.findIndex(function (item) {
+              var _i21 = _this64.controls.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this55.controls.splice(_i16, 1);
+              _this64.controls.splice(_i21, 1);
 
-              _this55.controlSubject.next(_this55.controls);
+              _this64.controlSubject.next(_this64.controls);
 
-              _this55.controlsTrash.push(res.data);
+              _this64.controlsTrash.push(res.data);
 
-              _this55.controlTrashSubject.next(_this55.controlsTrash);
+              _this64.controlTrashSubject.next(_this64.controlsTrash);
 
-              _this55.controlSubject.next(_this55.controls);
+              _this64.controlSubject.next(_this64.controls);
             } else if (res.operation.typeOperation === 'restore') {
-              var _i17 = _this55.controlsTrash.findIndex(function (item) {
+              var _i22 = _this64.controlsTrash.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this55.controlsTrash.splice(_i17, 1);
+              _this64.controlsTrash.splice(_i22, 1);
 
-              _this55.controlTrashSubject.next(_this55.controlsTrash);
+              _this64.controlTrashSubject.next(_this64.controlsTrash);
 
-              _this55.controls.push(res.data);
+              _this64.controls.push(res.data);
 
-              _this55.controlSubject.next(_this55.controls);
+              _this64.controlSubject.next(_this64.controls);
             }
           } else if (res.operation.model === "propriete") {
             if (res.operation.typeOperation === 'add') {
-              _this55.proprietes.push(res.data);
+              _this64.proprietes.push(res.data);
 
-              _this55.proprieteSubject.next(_this55.proprietes);
+              _this64.proprieteSubject.next(_this64.proprietes);
             } else if (res.operation.typeOperation === 'edit') {
-              var _i18 = _this55.proprietes.findIndex(function (item) {
+              var _i23 = _this64.proprietes.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this55.proprietes[_i18] = res.data;
+              _this64.proprietes[_i23] = res.data;
 
-              _this55.proprieteSubject.next(_this55.proprietes);
+              _this64.proprieteSubject.next(_this64.proprietes);
             } else if (res.operation.typeOperation === 'delete') {
-              var _i19 = _this55.proprietes.findIndex(function (item) {
+              var _i24 = _this64.proprietes.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this55.proprietes.splice(_i19, 1);
+              _this64.proprietes.splice(_i24, 1);
 
-              _this55.proprieteSubject.next(_this55.proprietes);
+              _this64.proprieteSubject.next(_this64.proprietes);
 
-              _this55.proprietesTrash.push(res.data);
+              _this64.proprietesTrash.push(res.data);
 
-              _this55.proprieteTrashSubject.next(_this55.proprietesTrash);
+              _this64.proprieteTrashSubject.next(_this64.proprietesTrash);
 
-              _this55.proprieteSubject.next(_this55.proprietes);
+              _this64.proprieteSubject.next(_this64.proprietes);
             } else if (res.operation.typeOperation === 'restore') {
-              var _i20 = _this55.proprietesTrash.findIndex(function (item) {
+              var _i25 = _this64.proprietesTrash.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this55.proprietesTrash.splice(_i20, 1);
+              _this64.proprietesTrash.splice(_i25, 1);
 
-              _this55.proprieteTrashSubject.next(_this55.proprietesTrash);
+              _this64.proprieteTrashSubject.next(_this64.proprietesTrash);
 
-              _this55.proprietes.push(res.data);
+              _this64.proprietes.push(res.data);
 
-              _this55.proprieteSubject.next(_this55.proprietes);
+              _this64.proprieteSubject.next(_this64.proprietes);
             }
           }
         });
@@ -8307,65 +8805,65 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "addControl",
         value: function addControl(data) {
-          var _this56 = this;
+          var _this65 = this;
 
           return this.api.post('control:add', data).then(function (res) {
-            _this56.controls.push(res);
+            _this65.controls.push(res);
 
-            _this56.controlSubject.next(_this56.controls);
+            _this65.controlSubject.next(_this65.controls);
           });
         }
       }, {
         key: "editControl",
         value: function editControl(data) {
-          var _this57 = this;
+          var _this66 = this;
 
           return this.api.post('control:edit', data).then(function (res) {
-            var i = _this57.controls.findIndex(function (item) {
+            var i = _this66.controls.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this57.controls[i] = res;
+            _this66.controls[i] = res;
 
-            _this57.controlSubject.next(_this57.controls);
+            _this66.controlSubject.next(_this66.controls);
           });
         }
       }, {
         key: "deleteControl",
         value: function deleteControl(id) {
-          var _this58 = this;
+          var _this67 = this;
 
           return this.api.post('control:delete', id).then(function (res) {
-            var i = _this58.controls.findIndex(function (item) {
+            var i = _this67.controls.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this58.controls.splice(i, 1);
+            _this67.controls.splice(i, 1);
 
-            _this58.controlSubject.next(_this58.controls);
+            _this67.controlSubject.next(_this67.controls);
 
-            _this58.controlsTrash.push(res);
+            _this67.controlsTrash.push(res);
 
-            _this58.controlTrashSubject.next(_this58.controlsTrash);
+            _this67.controlTrashSubject.next(_this67.controlsTrash);
           });
         }
       }, {
         key: "restoreControl",
         value: function restoreControl(id) {
-          var _this59 = this;
+          var _this68 = this;
 
           return this.api.post('control:restore', id).then(function (res) {
-            var i = _this59.controlsTrash.findIndex(function (item) {
+            var i = _this68.controlsTrash.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this59.controlsTrash.splice(i, 1);
+            _this68.controlsTrash.splice(i, 1);
 
-            _this59.controlTrashSubject.next(_this59.controlsTrash);
+            _this68.controlTrashSubject.next(_this68.controlsTrash);
 
-            _this59.controls.push(res);
+            _this68.controls.push(res);
 
-            _this59.controlSubject.next(_this59.controls);
+            _this68.controlSubject.next(_this68.controls);
           });
         }
         /**
@@ -8414,65 +8912,65 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "addPropriete",
         value: function addPropriete(data) {
-          var _this60 = this;
+          var _this69 = this;
 
           return this.api.post('propriete:add', data).then(function (res) {
-            _this60.proprietes.push(res);
+            _this69.proprietes.push(res);
 
-            _this60.proprieteSubject.next(_this60.proprietes);
+            _this69.proprieteSubject.next(_this69.proprietes);
           });
         }
       }, {
         key: "editPropriete",
         value: function editPropriete(data) {
-          var _this61 = this;
+          var _this70 = this;
 
           return this.api.post('propriete:edit', data).then(function (res) {
-            var i = _this61.proprietes.findIndex(function (item) {
+            var i = _this70.proprietes.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this61.proprietes[i] = res;
+            _this70.proprietes[i] = res;
 
-            _this61.proprieteSubject.next(_this61.proprietes);
+            _this70.proprieteSubject.next(_this70.proprietes);
           });
         }
       }, {
         key: "deletePropriete",
         value: function deletePropriete(id) {
-          var _this62 = this;
+          var _this71 = this;
 
           return this.api.post('propriete:delete', id).then(function (res) {
-            var i = _this62.proprietes.findIndex(function (item) {
+            var i = _this71.proprietes.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this62.proprietes.splice(i, 1);
+            _this71.proprietes.splice(i, 1);
 
-            _this62.proprieteSubject.next(_this62.proprietes);
+            _this71.proprieteSubject.next(_this71.proprietes);
 
-            _this62.proprietesTrash.push(res);
+            _this71.proprietesTrash.push(res);
 
-            _this62.proprieteTrashSubject.next(_this62.proprietesTrash);
+            _this71.proprieteTrashSubject.next(_this71.proprietesTrash);
           });
         }
       }, {
         key: "restorePropriete",
         value: function restorePropriete(id) {
-          var _this63 = this;
+          var _this72 = this;
 
           return this.api.post('propriete:restore', id).then(function (res) {
-            var i = _this63.proprietesTrash.findIndex(function (item) {
+            var i = _this72.proprietesTrash.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this63.proprietesTrash.splice(i, 1);
+            _this72.proprietesTrash.splice(i, 1);
 
-            _this63.proprieteTrashSubject.next(_this63.proprietesTrash);
+            _this72.proprieteTrashSubject.next(_this72.proprietesTrash);
 
-            _this63.proprietes.push(res);
+            _this72.proprietes.push(res);
 
-            _this63.proprieteSubject.next(_this63.proprietes);
+            _this72.proprieteSubject.next(_this72.proprietes);
           });
         }
       }]);
@@ -8540,7 +9038,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*#__PURE__*/
     function () {
       function ProduitService(api) {
-        var _this64 = this;
+        var _this73 = this;
 
         _classCallCheck(this, ProduitService);
 
@@ -8552,155 +9050,155 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.intrantSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
         this.intrantTrashSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
         this.api.post('categorie:all', null).then(function (res) {
-          _this64.categories = res;
+          _this73.categories = res;
 
-          _this64.categorieSubject.next(_this64.categories);
+          _this73.categorieSubject.next(_this73.categories);
         });
         this.api.post('categorie:trash', null).then(function (res) {
-          _this64.categoriesTrash = res;
+          _this73.categoriesTrash = res;
 
-          _this64.categorieTrashSubject.next(_this64.categoriesTrash);
+          _this73.categorieTrashSubject.next(_this73.categoriesTrash);
         });
         this.api.post('produit:all', null).then(function (res) {
-          _this64.produits = res;
+          _this73.produits = res;
 
-          _this64.produitSubject.next(_this64.produits);
+          _this73.produitSubject.next(_this73.produits);
         });
         this.api.post('produit:trash', null).then(function (res) {
-          _this64.produitsTrash = res;
+          _this73.produitsTrash = res;
 
-          _this64.produitTrashSubject.next(_this64.produitsTrash);
+          _this73.produitTrashSubject.next(_this73.produitsTrash);
         });
         this.api.post('intrant:all', null).then(function (res) {
-          _this64.intrants = res;
+          _this73.intrants = res;
 
-          _this64.intrantSubject.next(_this64.intrants);
+          _this73.intrantSubject.next(_this73.intrants);
         });
         this.api.post('intrant:trash', null).then(function (res) {
-          _this64.intrantsTrash = res;
+          _this73.intrantsTrash = res;
 
-          _this64.intrantTrashSubject.next(_this64.intrantsTrash);
+          _this73.intrantTrashSubject.next(_this73.intrantsTrash);
         });
         this.api.getStreamData().subscribe(function (res) {
           if (res.operation.model === "Categorie") {
             if (res.operation.typeOperation === 'add') {
-              _this64.categories.push(res.data);
+              _this73.categories.push(res.data);
 
-              _this64.categorieSubject.next(_this64.categories);
+              _this73.categorieSubject.next(_this73.categories);
             } else if (res.operation.typeOperation === 'edit') {
-              var i = _this64.categories.findIndex(function (item) {
+              var i = _this73.categories.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this64.categories[i] = res.data;
+              _this73.categories[i] = res.data;
 
-              _this64.categorieSubject.next(_this64.categories);
+              _this73.categorieSubject.next(_this73.categories);
             } else if (res.operation.typeOperation === 'delete') {
-              var _i21 = _this64.categories.findIndex(function (item) {
+              var _i26 = _this73.categories.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this64.categories.splice(_i21, 1);
+              _this73.categories.splice(_i26, 1);
 
-              _this64.categorieSubject.next(_this64.categories);
+              _this73.categorieSubject.next(_this73.categories);
 
-              _this64.categoriesTrash.push(res.data);
+              _this73.categoriesTrash.push(res.data);
 
-              _this64.categorieTrashSubject.next(_this64.categoriesTrash);
+              _this73.categorieTrashSubject.next(_this73.categoriesTrash);
 
-              _this64.categorieSubject.next(_this64.categories);
+              _this73.categorieSubject.next(_this73.categories);
             } else if (res.operation.typeOperation === 'restore') {
-              var _i22 = _this64.categoriesTrash.findIndex(function (item) {
+              var _i27 = _this73.categoriesTrash.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this64.categoriesTrash.splice(_i22, 1);
+              _this73.categoriesTrash.splice(_i27, 1);
 
-              _this64.categorieTrashSubject.next(_this64.categoriesTrash);
+              _this73.categorieTrashSubject.next(_this73.categoriesTrash);
 
-              _this64.categories.push(res.data);
+              _this73.categories.push(res.data);
 
-              _this64.categorieSubject.next(_this64.categories);
+              _this73.categorieSubject.next(_this73.categories);
             }
           } else if (res.operation.model === "Produit") {
             if (res.operation.typeOperation === 'add') {
-              _this64.produits.push(res.data);
+              _this73.produits.push(res.data);
 
-              _this64.produitSubject.next(_this64.produits);
+              _this73.produitSubject.next(_this73.produits);
             } else if (res.operation.typeOperation === 'edit') {
-              var _i23 = _this64.produits.findIndex(function (item) {
+              var _i28 = _this73.produits.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this64.produits[_i23] = res.data;
+              _this73.produits[_i28] = res.data;
 
-              _this64.produitSubject.next(_this64.produits);
+              _this73.produitSubject.next(_this73.produits);
             } else if (res.operation.typeOperation === 'delete') {
-              var _i24 = _this64.produits.findIndex(function (item) {
+              var _i29 = _this73.produits.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this64.produits.splice(_i24, 1);
+              _this73.produits.splice(_i29, 1);
 
-              _this64.produitSubject.next(_this64.produits);
+              _this73.produitSubject.next(_this73.produits);
 
-              _this64.produitsTrash.push(res.data);
+              _this73.produitsTrash.push(res.data);
 
-              _this64.produitTrashSubject.next(_this64.produitsTrash);
+              _this73.produitTrashSubject.next(_this73.produitsTrash);
 
-              _this64.produitSubject.next(_this64.produits);
+              _this73.produitSubject.next(_this73.produits);
             } else if (res.operation.typeOperation === 'restore') {
-              var _i25 = _this64.produitsTrash.findIndex(function (item) {
+              var _i30 = _this73.produitsTrash.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this64.produitsTrash.splice(_i25, 1);
+              _this73.produitsTrash.splice(_i30, 1);
 
-              _this64.produitTrashSubject.next(_this64.produitsTrash);
+              _this73.produitTrashSubject.next(_this73.produitsTrash);
 
-              _this64.produits.push(res.data);
+              _this73.produits.push(res.data);
 
-              _this64.produitSubject.next(_this64.produits);
+              _this73.produitSubject.next(_this73.produits);
             }
           } else if (res.operation.model === "Intrant") {
             if (res.operation.typeOperation === 'add') {
-              _this64.intrants.push(res.data);
+              _this73.intrants.push(res.data);
 
-              _this64.intrantSubject.next(_this64.intrants);
+              _this73.intrantSubject.next(_this73.intrants);
             } else if (res.operation.typeOperation === 'edit') {
-              var _i26 = _this64.intrants.findIndex(function (item) {
+              var _i31 = _this73.intrants.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this64.intrants[_i26] = res.data;
+              _this73.intrants[_i31] = res.data;
 
-              _this64.intrantSubject.next(_this64.intrants);
+              _this73.intrantSubject.next(_this73.intrants);
             } else if (res.operation.typeOperation === 'delete') {
-              var _i27 = _this64.intrants.findIndex(function (item) {
+              var _i32 = _this73.intrants.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this64.intrants.splice(_i27, 1);
+              _this73.intrants.splice(_i32, 1);
 
-              _this64.intrantSubject.next(_this64.intrants);
+              _this73.intrantSubject.next(_this73.intrants);
 
-              _this64.intrantsTrash.push(res.data);
+              _this73.intrantsTrash.push(res.data);
 
-              _this64.intrantTrashSubject.next(_this64.intrantsTrash);
+              _this73.intrantTrashSubject.next(_this73.intrantsTrash);
 
-              _this64.intrantSubject.next(_this64.intrants);
+              _this73.intrantSubject.next(_this73.intrants);
             } else if (res.operation.typeOperation === 'restore') {
-              var _i28 = _this64.intrantsTrash.findIndex(function (item) {
+              var _i33 = _this73.intrantsTrash.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this64.intrantsTrash.splice(_i28, 1);
+              _this73.intrantsTrash.splice(_i33, 1);
 
-              _this64.intrantTrashSubject.next(_this64.intrantsTrash);
+              _this73.intrantTrashSubject.next(_this73.intrantsTrash);
 
-              _this64.intrants.push(res.data);
+              _this73.intrants.push(res.data);
 
-              _this64.intrantSubject.next(_this64.intrants);
+              _this73.intrantSubject.next(_this73.intrants);
             }
           }
         });
@@ -8737,65 +9235,65 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "addCategorie",
         value: function addCategorie(data) {
-          var _this65 = this;
+          var _this74 = this;
 
           return this.api.post('categorie:add', data).then(function (res) {
-            _this65.categories.push(res);
+            _this74.categories.push(res);
 
-            _this65.categorieSubject.next(_this65.categories);
+            _this74.categorieSubject.next(_this74.categories);
           });
         }
       }, {
         key: "editCategorie",
         value: function editCategorie(data) {
-          var _this66 = this;
+          var _this75 = this;
 
           return this.api.post('categorie:edit', data).then(function (res) {
-            var i = _this66.categories.findIndex(function (item) {
+            var i = _this75.categories.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this66.categories[i] = res;
+            _this75.categories[i] = res;
 
-            _this66.categorieSubject.next(_this66.categories);
+            _this75.categorieSubject.next(_this75.categories);
           });
         }
       }, {
         key: "deleteCategorie",
         value: function deleteCategorie(id) {
-          var _this67 = this;
+          var _this76 = this;
 
           return this.api.post('categorie:delete', id).then(function (res) {
-            var i = _this67.categories.findIndex(function (item) {
+            var i = _this76.categories.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this67.categories.splice(i, 1);
+            _this76.categories.splice(i, 1);
 
-            _this67.categorieSubject.next(_this67.categories);
+            _this76.categorieSubject.next(_this76.categories);
 
-            _this67.categoriesTrash.push(res);
+            _this76.categoriesTrash.push(res);
 
-            _this67.categorieTrashSubject.next(_this67.categoriesTrash);
+            _this76.categorieTrashSubject.next(_this76.categoriesTrash);
           });
         }
       }, {
         key: "restoreCategorie",
         value: function restoreCategorie(id) {
-          var _this68 = this;
+          var _this77 = this;
 
           return this.api.post('categorie:restore', id).then(function (res) {
-            var i = _this68.categoriesTrash.findIndex(function (item) {
+            var i = _this77.categoriesTrash.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this68.categoriesTrash.splice(i, 1);
+            _this77.categoriesTrash.splice(i, 1);
 
-            _this68.categorieTrashSubject.next(_this68.categoriesTrash);
+            _this77.categorieTrashSubject.next(_this77.categoriesTrash);
 
-            _this68.categories.push(res);
+            _this77.categories.push(res);
 
-            _this68.categorieSubject.next(_this68.categories);
+            _this77.categorieSubject.next(_this77.categories);
           });
         }
         /**
@@ -8829,65 +9327,65 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "addProduit",
         value: function addProduit(data) {
-          var _this69 = this;
+          var _this78 = this;
 
           return this.api.post('produit:add', data).then(function (res) {
-            _this69.produits.push(res);
+            _this78.produits.push(res);
 
-            _this69.produitSubject.next(_this69.produits);
+            _this78.produitSubject.next(_this78.produits);
           });
         }
       }, {
         key: "editProduit",
         value: function editProduit(data) {
-          var _this70 = this;
+          var _this79 = this;
 
           return this.api.post('produit:edit', data).then(function (res) {
-            var i = _this70.produits.findIndex(function (item) {
+            var i = _this79.produits.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this70.produits[i] = res;
+            _this79.produits[i] = res;
 
-            _this70.produitSubject.next(_this70.produits);
+            _this79.produitSubject.next(_this79.produits);
           });
         }
       }, {
         key: "deleteProduit",
         value: function deleteProduit(id) {
-          var _this71 = this;
+          var _this80 = this;
 
           return this.api.post('produit:delete', id).then(function (res) {
-            var i = _this71.produits.findIndex(function (item) {
+            var i = _this80.produits.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this71.produits.splice(i, 1);
+            _this80.produits.splice(i, 1);
 
-            _this71.produitSubject.next(_this71.produits);
+            _this80.produitSubject.next(_this80.produits);
 
-            _this71.produitsTrash.push(res);
+            _this80.produitsTrash.push(res);
 
-            _this71.produitTrashSubject.next(_this71.produitsTrash);
+            _this80.produitTrashSubject.next(_this80.produitsTrash);
           });
         }
       }, {
         key: "restoreProduit",
         value: function restoreProduit(id) {
-          var _this72 = this;
+          var _this81 = this;
 
           return this.api.post('produit:restore', id).then(function (res) {
-            var i = _this72.produitsTrash.findIndex(function (item) {
+            var i = _this81.produitsTrash.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this72.produitsTrash.splice(i, 1);
+            _this81.produitsTrash.splice(i, 1);
 
-            _this72.produitTrashSubject.next(_this72.produitsTrash);
+            _this81.produitTrashSubject.next(_this81.produitsTrash);
 
-            _this72.produits.push(res);
+            _this81.produits.push(res);
 
-            _this72.produitSubject.next(_this72.produits);
+            _this81.produitSubject.next(_this81.produits);
           });
         }
         /**
@@ -8921,65 +9419,65 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "addIntrant",
         value: function addIntrant(data) {
-          var _this73 = this;
+          var _this82 = this;
 
           return this.api.post('intrant:add', data).then(function (res) {
-            _this73.intrants.push(res);
+            _this82.intrants.push(res);
 
-            _this73.intrantSubject.next(_this73.intrants);
+            _this82.intrantSubject.next(_this82.intrants);
           });
         }
       }, {
         key: "editIntrant",
         value: function editIntrant(data) {
-          var _this74 = this;
+          var _this83 = this;
 
           return this.api.post('intrant:edit', data).then(function (res) {
-            var i = _this74.intrants.findIndex(function (item) {
+            var i = _this83.intrants.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this74.intrants[i] = res;
+            _this83.intrants[i] = res;
 
-            _this74.intrantSubject.next(_this74.intrants);
+            _this83.intrantSubject.next(_this83.intrants);
           });
         }
       }, {
         key: "deleteIntrant",
         value: function deleteIntrant(id) {
-          var _this75 = this;
+          var _this84 = this;
 
           return this.api.post('intrant:delete', id).then(function (res) {
-            var i = _this75.intrants.findIndex(function (item) {
+            var i = _this84.intrants.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this75.intrants.splice(i, 1);
+            _this84.intrants.splice(i, 1);
 
-            _this75.intrantSubject.next(_this75.intrants);
+            _this84.intrantSubject.next(_this84.intrants);
 
-            _this75.intrantsTrash.push(res);
+            _this84.intrantsTrash.push(res);
 
-            _this75.intrantTrashSubject.next(_this75.intrantsTrash);
+            _this84.intrantTrashSubject.next(_this84.intrantsTrash);
           });
         }
       }, {
         key: "restoreIntrant",
         value: function restoreIntrant(id) {
-          var _this76 = this;
+          var _this85 = this;
 
           return this.api.post('intrant:restore', id).then(function (res) {
-            var i = _this76.intrantsTrash.findIndex(function (item) {
+            var i = _this85.intrantsTrash.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this76.intrantsTrash.splice(i, 1);
+            _this85.intrantsTrash.splice(i, 1);
 
-            _this76.intrantTrashSubject.next(_this76.intrantsTrash);
+            _this85.intrantTrashSubject.next(_this85.intrantsTrash);
 
-            _this76.intrants.push(res);
+            _this85.intrants.push(res);
 
-            _this76.intrantSubject.next(_this76.intrants);
+            _this85.intrantSubject.next(_this85.intrants);
           });
         }
       }]);
@@ -9047,7 +9545,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*#__PURE__*/
     function () {
       function SortieService(api) {
-        var _this77 = this;
+        var _this86 = this;
 
         _classCallCheck(this, SortieService);
 
@@ -9063,43 +9561,43 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.api.getStreamData().subscribe(function (res) {
           if (res.operation.model === "Sortie") {
             if (res.operation.typeOperation === 'add') {
-              _this77.sorties.push(res.data);
+              _this86.sorties.push(res.data);
 
-              _this77.sortieSubject.next(_this77.sorties);
+              _this86.sortieSubject.next(_this86.sorties);
             } else if (res.operation.typeOperation === 'edit') {
-              var i = _this77.sorties.findIndex(function (item) {
+              var i = _this86.sorties.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this77.sorties[i] = res.data;
+              _this86.sorties[i] = res.data;
 
-              _this77.sortieSubject.next(_this77.sorties);
+              _this86.sortieSubject.next(_this86.sorties);
             } else if (res.operation.typeOperation === 'delete') {
-              var _i29 = _this77.sorties.findIndex(function (item) {
+              var _i34 = _this86.sorties.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this77.sorties.splice(_i29, 1);
+              _this86.sorties.splice(_i34, 1);
 
-              _this77.sortieSubject.next(_this77.sorties);
+              _this86.sortieSubject.next(_this86.sorties);
 
-              _this77.sortiesTrash.push(res.data);
+              _this86.sortiesTrash.push(res.data);
 
-              _this77.sortieTrashSubject.next(_this77.sortiesTrash);
+              _this86.sortieTrashSubject.next(_this86.sortiesTrash);
 
-              _this77.sortieSubject.next(_this77.sorties);
+              _this86.sortieSubject.next(_this86.sorties);
             } else if (res.operation.typeOperation === 'restore') {
-              var _i30 = _this77.sortiesTrash.findIndex(function (item) {
+              var _i35 = _this86.sortiesTrash.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this77.sortiesTrash.splice(_i30, 1);
+              _this86.sortiesTrash.splice(_i35, 1);
 
-              _this77.sortieTrashSubject.next(_this77.sortiesTrash);
+              _this86.sortieTrashSubject.next(_this86.sortiesTrash);
 
-              _this77.sorties.push(res.data);
+              _this86.sorties.push(res.data);
 
-              _this77.sortieSubject.next(_this77.sorties);
+              _this86.sortieSubject.next(_this86.sorties);
             }
           }
         });
@@ -9132,93 +9630,93 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "addSortie",
         value: function addSortie(data) {
-          var _this78 = this;
+          var _this87 = this;
 
           return this.api.post('sortie:add', data).then(function (res) {
-            _this78.sorties.unshift(res);
+            _this87.sorties.unshift(res);
 
-            _this78.sortieSubject.next(_this78.sorties);
+            _this87.sortieSubject.next(_this87.sorties);
           });
         }
       }, {
         key: "editSortie",
         value: function editSortie(data) {
-          var _this79 = this;
+          var _this88 = this;
 
           return this.api.post('sortie:edit', data).then(function (res) {
-            var i = _this79.sorties.findIndex(function (item) {
+            var i = _this88.sorties.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this79.sorties[i] = res;
+            _this88.sorties[i] = res;
 
-            _this79.sortieSubject.next(_this79.sorties);
+            _this88.sortieSubject.next(_this88.sorties);
           });
         }
       }, {
         key: "deleteSortie",
         value: function deleteSortie(id) {
-          var _this80 = this;
+          var _this89 = this;
 
           return this.api.post('sortie:delete', id).then(function (res) {
-            var i = _this80.sorties.findIndex(function (item) {
+            var i = _this89.sorties.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this80.sorties.splice(i, 1);
+            _this89.sorties.splice(i, 1);
 
-            _this80.sortieSubject.next(_this80.sorties);
+            _this89.sortieSubject.next(_this89.sorties);
 
-            _this80.sortiesTrash.push(res);
+            _this89.sortiesTrash.push(res);
 
-            _this80.sortieTrashSubject.next(_this80.sortiesTrash);
+            _this89.sortieTrashSubject.next(_this89.sortiesTrash);
           });
         }
       }, {
         key: "restoreSortie",
         value: function restoreSortie(id) {
-          var _this81 = this;
+          var _this90 = this;
 
           return this.api.post('sortie:restore', id).then(function (res) {
-            var i = _this81.sortiesTrash.findIndex(function (item) {
+            var i = _this90.sortiesTrash.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this81.sortiesTrash.splice(i, 1);
+            _this90.sortiesTrash.splice(i, 1);
 
-            _this81.sortieTrashSubject.next(_this81.sortiesTrash);
+            _this90.sortieTrashSubject.next(_this90.sortiesTrash);
 
-            _this81.sorties.push(res);
+            _this90.sorties.push(res);
 
-            _this81.sortieSubject.next(_this81.sorties);
+            _this90.sortieSubject.next(_this90.sorties);
           });
         }
       }, {
         key: "getServerSorties",
         value: function getServerSorties() {
-          var _this82 = this;
+          var _this91 = this;
 
           this.api.post('sortie:all', this.lastId).then(function (res) {
             res.forEach(function (item) {
-              return _this82.sorties.push(item);
+              return _this91.sorties.push(item);
             });
-            _this82.lastId += res.length;
+            _this91.lastId += res.length;
 
-            _this82.sortieSubject.next(_this82.sorties);
+            _this91.sortieSubject.next(_this91.sorties);
           });
         }
       }, {
         key: "getSeverSortiesTrash",
         value: function getSeverSortiesTrash() {
-          var _this83 = this;
+          var _this92 = this;
 
           this.api.post('sortie:trash', this.lastTrashId).then(function (res) {
             res.forEach(function (item) {
-              return _this83.sorties.push(item);
+              return _this92.sorties.push(item);
             });
-            _this83.lastTrashId += res.length;
+            _this92.lastTrashId += res.length;
 
-            _this83.sortieTrashSubject.next(_this83.sortiesTrash);
+            _this92.sortieTrashSubject.next(_this92.sortiesTrash);
           });
         }
       }]);
@@ -9286,7 +9784,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*#__PURE__*/
     function () {
       function UserService(api) {
-        var _this84 = this;
+        var _this93 = this;
 
         _classCallCheck(this, UserService);
 
@@ -9296,105 +9794,105 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.userSubject = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]([]);
         this.userTrashSubject = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]([]);
         this.api.post('fonction:all', null).then(function (res) {
-          _this84.fonctions = res;
+          _this93.fonctions = res;
 
-          _this84.fonctionSubject.next(_this84.fonctions);
+          _this93.fonctionSubject.next(_this93.fonctions);
         });
         this.api.post('fonction:trash', null).then(function (res) {
-          _this84.fonctionsTrash = res;
+          _this93.fonctionsTrash = res;
 
-          _this84.fonctionTrashSubject.next(_this84.fonctionsTrash);
+          _this93.fonctionTrashSubject.next(_this93.fonctionsTrash);
         });
         this.api.post('user:all', null).then(function (res) {
-          _this84.users = res;
+          _this93.users = res;
 
-          _this84.userSubject.next(_this84.users);
+          _this93.userSubject.next(_this93.users);
         });
         this.api.post('user:trash', null).then(function (res) {
-          _this84.usersTrash = res;
+          _this93.usersTrash = res;
 
-          _this84.userTrashSubject.next(_this84.usersTrash);
+          _this93.userTrashSubject.next(_this93.usersTrash);
         });
         this.api.getStreamData().subscribe(function (res) {
           if (res.operation.model === "Fonction") {
             if (res.operation.typeOperation === 'add') {
-              _this84.fonctions.push(res.data);
+              _this93.fonctions.push(res.data);
 
-              _this84.fonctionSubject.next(_this84.fonctions);
+              _this93.fonctionSubject.next(_this93.fonctions);
             } else if (res.operation.typeOperation === 'edit') {
-              var i = _this84.fonctions.findIndex(function (item) {
+              var i = _this93.fonctions.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this84.fonctions[i] = res.data;
+              _this93.fonctions[i] = res.data;
 
-              _this84.fonctionSubject.next(_this84.fonctions);
+              _this93.fonctionSubject.next(_this93.fonctions);
             } else if (res.operation.typeOperation === 'delete') {
-              var _i31 = _this84.fonctions.findIndex(function (item) {
+              var _i36 = _this93.fonctions.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this84.fonctions.splice(_i31, 1);
+              _this93.fonctions.splice(_i36, 1);
 
-              _this84.fonctionSubject.next(_this84.fonctions);
+              _this93.fonctionSubject.next(_this93.fonctions);
 
-              _this84.fonctionsTrash.push(res.data);
+              _this93.fonctionsTrash.push(res.data);
 
-              _this84.fonctionTrashSubject.next(_this84.fonctionsTrash);
+              _this93.fonctionTrashSubject.next(_this93.fonctionsTrash);
 
-              _this84.fonctionSubject.next(_this84.fonctions);
+              _this93.fonctionSubject.next(_this93.fonctions);
             } else if (res.operation.typeOperation === 'restore') {
-              var _i32 = _this84.fonctionsTrash.findIndex(function (item) {
+              var _i37 = _this93.fonctionsTrash.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this84.fonctionsTrash.splice(_i32, 1);
+              _this93.fonctionsTrash.splice(_i37, 1);
 
-              _this84.fonctionTrashSubject.next(_this84.fonctionsTrash);
+              _this93.fonctionTrashSubject.next(_this93.fonctionsTrash);
 
-              _this84.fonctions.push(res.data);
+              _this93.fonctions.push(res.data);
 
-              _this84.fonctionSubject.next(_this84.fonctions);
+              _this93.fonctionSubject.next(_this93.fonctions);
             }
           } else if (res.operation.model === "User") {
             if (res.operation.typeOperation === 'add') {
-              _this84.users.push(res.data);
+              _this93.users.push(res.data);
 
-              _this84.userSubject.next(_this84.users);
+              _this93.userSubject.next(_this93.users);
             } else if (res.operation.typeOperation === 'edit') {
-              var _i33 = _this84.users.findIndex(function (item) {
+              var _i38 = _this93.users.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this84.users[_i33] = res.data;
+              _this93.users[_i38] = res.data;
 
-              _this84.userSubject.next(_this84.users);
+              _this93.userSubject.next(_this93.users);
             } else if (res.operation.typeOperation === 'delete') {
-              var _i34 = _this84.users.findIndex(function (item) {
+              var _i39 = _this93.users.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this84.users.splice(_i34, 1);
+              _this93.users.splice(_i39, 1);
 
-              _this84.userSubject.next(_this84.users);
+              _this93.userSubject.next(_this93.users);
 
-              _this84.usersTrash.push(res.data);
+              _this93.usersTrash.push(res.data);
 
-              _this84.userTrashSubject.next(_this84.usersTrash);
+              _this93.userTrashSubject.next(_this93.usersTrash);
 
-              _this84.userSubject.next(_this84.users);
+              _this93.userSubject.next(_this93.users);
             } else if (res.operation.typeOperation === 'restore') {
-              var _i35 = _this84.usersTrash.findIndex(function (item) {
+              var _i40 = _this93.usersTrash.findIndex(function (item) {
                 return item.id === res.data.id;
               });
 
-              _this84.usersTrash.splice(_i35, 1);
+              _this93.usersTrash.splice(_i40, 1);
 
-              _this84.userTrashSubject.next(_this84.usersTrash);
+              _this93.userTrashSubject.next(_this93.usersTrash);
 
-              _this84.users.push(res.data);
+              _this93.users.push(res.data);
 
-              _this84.userSubject.next(_this84.users);
+              _this93.userSubject.next(_this93.users);
             }
           }
         });
@@ -9431,65 +9929,65 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "addFonction",
         value: function addFonction(data) {
-          var _this85 = this;
+          var _this94 = this;
 
           return this.api.post('fonction:add', data).then(function (res) {
-            _this85.fonctions.push(res);
+            _this94.fonctions.push(res);
 
-            _this85.fonctionSubject.next(_this85.fonctions);
+            _this94.fonctionSubject.next(_this94.fonctions);
           });
         }
       }, {
         key: "editFonction",
         value: function editFonction(data) {
-          var _this86 = this;
+          var _this95 = this;
 
           return this.api.post('fonction:edit', data).then(function (res) {
-            var i = _this86.fonctions.findIndex(function (item) {
+            var i = _this95.fonctions.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this86.fonctions[i] = res;
+            _this95.fonctions[i] = res;
 
-            _this86.fonctionSubject.next(_this86.fonctions);
+            _this95.fonctionSubject.next(_this95.fonctions);
           });
         }
       }, {
         key: "deleteFonction",
         value: function deleteFonction(id) {
-          var _this87 = this;
+          var _this96 = this;
 
           return this.api.post('fonction:delete', id).then(function (res) {
-            var i = _this87.fonctions.findIndex(function (item) {
+            var i = _this96.fonctions.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this87.fonctions.splice(i, 1);
+            _this96.fonctions.splice(i, 1);
 
-            _this87.fonctionSubject.next(_this87.fonctions);
+            _this96.fonctionSubject.next(_this96.fonctions);
 
-            _this87.fonctionsTrash.push(res);
+            _this96.fonctionsTrash.push(res);
 
-            _this87.fonctionTrashSubject.next(_this87.fonctionsTrash);
+            _this96.fonctionTrashSubject.next(_this96.fonctionsTrash);
           });
         }
       }, {
         key: "restoreFonction",
         value: function restoreFonction(id) {
-          var _this88 = this;
+          var _this97 = this;
 
           return this.api.post('fonction:restore', id).then(function (res) {
-            var i = _this88.fonctionsTrash.findIndex(function (item) {
+            var i = _this97.fonctionsTrash.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this88.fonctionsTrash.splice(i, 1);
+            _this97.fonctionsTrash.splice(i, 1);
 
-            _this88.fonctionTrashSubject.next(_this88.fonctionsTrash);
+            _this97.fonctionTrashSubject.next(_this97.fonctionsTrash);
 
-            _this88.fonctions.push(res);
+            _this97.fonctions.push(res);
 
-            _this88.fonctionSubject.next(_this88.fonctions);
+            _this97.fonctionSubject.next(_this97.fonctions);
           });
         }
         /**
@@ -9523,65 +10021,65 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "addUser",
         value: function addUser(data) {
-          var _this89 = this;
+          var _this98 = this;
 
           return this.api.post('user:add', data).then(function (res) {
-            _this89.users.push(res);
+            _this98.users.push(res);
 
-            _this89.userSubject.next(_this89.users);
+            _this98.userSubject.next(_this98.users);
           });
         }
       }, {
         key: "editUser",
         value: function editUser(data) {
-          var _this90 = this;
+          var _this99 = this;
 
           return this.api.post('user:edit', data).then(function (res) {
-            var i = _this90.users.findIndex(function (item) {
+            var i = _this99.users.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this90.users[i] = res;
+            _this99.users[i] = res;
 
-            _this90.userSubject.next(_this90.users);
+            _this99.userSubject.next(_this99.users);
           });
         }
       }, {
         key: "deleteUser",
         value: function deleteUser(id) {
-          var _this91 = this;
+          var _this100 = this;
 
           return this.api.post('user:delete', id).then(function (res) {
-            var i = _this91.users.findIndex(function (item) {
+            var i = _this100.users.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this91.users.splice(i, 1);
+            _this100.users.splice(i, 1);
 
-            _this91.userSubject.next(_this91.users);
+            _this100.userSubject.next(_this100.users);
 
-            _this91.usersTrash.push(res);
+            _this100.usersTrash.push(res);
 
-            _this91.userTrashSubject.next(_this91.usersTrash);
+            _this100.userTrashSubject.next(_this100.usersTrash);
           });
         }
       }, {
         key: "restoreUser",
         value: function restoreUser(id) {
-          var _this92 = this;
+          var _this101 = this;
 
           return this.api.post('user:restore', id).then(function (res) {
-            var i = _this92.usersTrash.findIndex(function (item) {
+            var i = _this101.usersTrash.findIndex(function (item) {
               return item.id === res.id;
             });
 
-            _this92.usersTrash.splice(i, 1);
+            _this101.usersTrash.splice(i, 1);
 
-            _this92.userTrashSubject.next(_this92.usersTrash);
+            _this101.userTrashSubject.next(_this101.usersTrash);
 
-            _this92.users.push(res);
+            _this101.users.push(res);
 
-            _this92.userSubject.next(_this92.users);
+            _this101.userSubject.next(_this101.users);
           });
         }
       }, {
@@ -9720,7 +10218,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   /***/
   function _(module, exports, __webpack_require__) {
     module.exports = __webpack_require__(
-    /*! C:\Users\Aroam\Desktop\hotel\src\main.ts */
+    /*! C:\Users\Aroam\Desktop\hotel-frontend\src\main.ts */
     "./src/main.ts");
     /***/
   },

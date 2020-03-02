@@ -52,22 +52,22 @@ export class LocationService {
 
     this.api.getStreamData().subscribe(
       (res) => {
-        if (res.operation.model === "client") {
-          if (res.operation.clientOperation === 'add') {
+        if (res.operation.model === "Client") {
+          if (res.operation.tableOperation === 'add') {
             this.clients.push(res.data);
             this.clientSubject.next(this.clients);
-          } else if (res.operation.clientOperation === 'edit') {
+          } else if (res.operation.tableOperation === 'edit') {
             let i = this.clients.findIndex(item => item.id === res.data.id);
             this.clients[i] = res.data;
             this.clientSubject.next(this.clients);
-          } else if (res.operation.clientOperation === 'delete') {
+          } else if (res.operation.tableOperation === 'delete') {
             let i = this.clients.findIndex(item => item.id === res.data.id);
             this.clients.splice(i, 1);
             this.clientSubject.next(this.clients);
             this.clientsTrash.push(res.data);
             this.clientTrashSubject.next(this.clientsTrash);
             this.clientSubject.next(this.clients);
-          } else if (res.operation.clientOperation === 'restore') {
+          } else if (res.operation.tableOperation === 'restore') {
             let i = this.clientsTrash.findIndex(item => item.id === res.data.id);
             this.clientsTrash.splice(i, 1);
             this.clientTrashSubject.next(this.clientsTrash);
@@ -75,22 +75,22 @@ export class LocationService {
             this.clientSubject.next(this.clients);
           }
 
-        } else if (res.operation.model === "location") {
-          if (res.operation.clientOperation === 'add') {
+        } else if (res.operation.model === "Location") {
+          if (res.operation.tableOperation === 'add') {
             this.locations.push(res.data);
             this.locationSubject.next(this.locations);
-          } else if (res.operation.clientOperation === 'edit') {
+          } else if (res.operation.tableOperation === 'edit') {
             let i = this.locations.findIndex(item => item.id === res.data.id);
             this.locations[i] = res.data;
             this.locationSubject.next(this.locations);
-          } else if (res.operation.clientOperation === 'delete') {
+          } else if (res.operation.tableOperation === 'delete') {
             let i = this.locations.findIndex(item => item.id === res.data.id);
             this.locations.splice(i, 1);
             this.locationSubject.next(this.locations);
             this.locationsTrash.push(res.data);
             this.locationTrashSubject.next(this.locationsTrash);
             this.locationSubject.next(this.locations);
-          } else if (res.operation.clientOperation === 'restore') {
+          } else if (res.operation.tableOperation === 'restore') {
             let i = this.locationsTrash.findIndex(item => item.id === res.data.id);
             this.locationsTrash.splice(i, 1);
             this.locationTrashSubject.next(this.locationsTrash);
@@ -127,6 +127,7 @@ export class LocationService {
       (res: Client) => {
         this.clients.push(res);
         this.clientSubject.next(this.clients);
+        return res;
       });
   }
 
@@ -224,5 +225,6 @@ export class LocationService {
         this.locationSubject.next(this.locations);
       });
   }
+
 
 }

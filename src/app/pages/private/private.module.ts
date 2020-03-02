@@ -26,7 +26,7 @@ const routes: Routes = [
       { path: 'sorties', loadChildren: './sorties/sorties.module#SortiesPageModule' },
       { path: 'clients', loadChildren: './clients/clients.module#ClientsPageModule' },
       { path: 'stats', loadChildren: './stats/stats.module#StatsPageModule' },
-    
+      { path: 'mesures', loadChildren: './mesures/mesures.module#MesuresPageModule'}
     ]
   }
 ];

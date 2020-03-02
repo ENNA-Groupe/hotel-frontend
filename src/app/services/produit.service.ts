@@ -9,7 +9,7 @@ import { Intrant } from '../models/intrant.model';
   providedIn: 'root'
 })
 export class ProduitService {
-
+ 
   private categories: Categorie[];
   private categoriesTrash: Categorie[];
   private produits: Produit[];
@@ -219,6 +219,12 @@ export class ProduitService {
 
   getProduit(id) {
     return this.produits.find(item => item.id === id);
+  }
+
+  getProduitActivites(id: number, lastActiviteId: number) {
+    return this.api.post('produit:activites',{produitId: id, lastId: lastActiviteId}).then(
+          res => res
+      );
   }
 
   addProduit(data) {

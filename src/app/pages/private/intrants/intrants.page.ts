@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Categorie } from 'src/app/models/categorie.model';
 import { Intrant } from 'src/app/models/intrant.model';
 import { PopoverController } from '@ionic/angular';
 import { ProduitService } from 'src/app/services/produit.service';
 import { DataService } from 'src/app/services/data.service';
-import { CategorieFormComponent } from 'src/app/components/categorie-form/categorie-form.component';
-import { CategorieProfilComponent } from 'src/app/components/categorie-profil/categorie-profil.component';
-import { IntrantFormComponent } from 'src/app/components/intrant-form/intrant-form.component';
-import { IntrantProfilComponent } from 'src/app/components/intrant-profil/intrant-profil.component';
+import { CategorieFormComponent } from 'src/app/components/forms/categorie-form/categorie-form.component';
+import { CategorieProfilComponent } from 'src/app/components/profil/categorie-profil/categorie-profil.component';
+import { IntrantFormComponent } from 'src/app/components/forms/intrant-form/intrant-form.component';
+import { IntrantProfilComponent } from 'src/app/components/profil/intrant-profil/intrant-profil.component';
 
 @Component({
   selector: 'app-intrants',
   templateUrl: './intrants.page.html',
   styleUrls: ['./intrants.page.scss'],
 })
-export class IntrantsPage implements OnInit {
+export class IntrantsPage implements OnInit, OnDestroy {
 categorieSubscription: Subscription;
   categories: Categorie[];
   categorieTrashSubscription: Subscription;
@@ -109,7 +109,7 @@ categorieSubscription: Subscription;
   }
 
   onDeleteCategorie(id: number){
-    this.produitService.deleteCategorie(id);
+    if(window.confirm('Voulez vous vraiment supprimer cette catégorie?')) this.produitService.deleteCategorie(id);
   }
 
   onRestoreCategorie(id: number){
@@ -120,7 +120,10 @@ categorieSubscription: Subscription;
   async onAddIntrant(id) {
     const popover = await this.popoverController.create({
       component: IntrantFormComponent,
-      translucent: false
+      translucent: false,
+      componentProps: {
+        catId: id
+      }
     });
   
     popover.onDidDismiss().then(
@@ -166,7 +169,7 @@ categorieSubscription: Subscription;
   }
 
   onRestoreIntrant(id: number){
-    this.produitService.restoreIntrant(id);
+    if(window.confirm('Voulez vous vraiment restorer ce produit?')) this.produitService.restoreIntrant(id);
   }
 
 }

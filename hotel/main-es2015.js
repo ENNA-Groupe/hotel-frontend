@@ -594,7 +594,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<p>\n  client-form works!\n</p>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n    <ion-title>\n      {{title}}\n    </ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"onClose()\">\n        <ion-icon slot=\"icon-only\" name=\"close\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\">\n    <ion-item>\n      <ion-label position=\"stacked\" color=\"primary\">Nom</ion-label>\n      <ion-input formControlName=\"nom\" type=\"text\" spellcheck=\"false\" autocapitalize=\"on\" required>\n      </ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label position=\"stacked\" color=\"primary\">Prenom</ion-label>\n      <ion-input formControlName=\"prenom\" type=\"text\" spellcheck=\"false\" autocapitalize=\"off\" required>\n      </ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label position=\"stacked\" color=\"primary\">Contact 1</ion-label>\n      <ion-input formControlName=\"contact1\" type=\"text\" spellcheck=\"false\" autocapitalize=\"off\" required>\n      </ion-input>\n    </ion-item>\n\n    \n    <ion-item>\n      <ion-label position=\"stacked\" color=\"primary\">Contact 2</ion-label>\n      <ion-input formControlName=\"contact2\" type=\"text\" spellcheck=\"false\" autocapitalize=\"off\" required>\n      </ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label position=\"stacked\" color=\"primary\">Adresse</ion-label>\n      <ion-input formControlName=\"adresse\" type=\"text\" spellcheck=\"false\" autocapitalize=\"off\" required>\n      </ion-input>\n    </ion-item>\n   \n    <ion-text class=\"ion-padding-start\" color=\"danger\"\n    *ngIf=\"(nom.invalid && (nom.dirty || nom.touched))\">\n      <p  *ngIf=\"nom.errors.required\" >\n        Le nom est requis.\n      </p>\n    </ion-text>\n    <ion-text class=\"ion-padding-start\" color=\"danger\"\n    *ngIf=\"(contact1.invalid && (contact1.dirty || contact1.touched))\">\n      <p  *ngIf=\"contact1.errors.required\" >\n        Le contact1 est requis.\n      </p>\n      <p  *ngIf=\"contact1.errors.minlength\" >\n        Le contact 1 doit être superieur à 8 charactères.\n      </p>\n    </ion-text>\n    <ion-text class=\"ion-padding-start\" color=\"danger\"\n    *ngIf=\"(adresse.invalid && (adresse.dirty || adresse.touched))\">\n      <p  *ngIf=\"adresse.errors.minlength\" >\n        L' adresse doit être superieur à 2 charactères.\n      </p>\n      <p  *ngIf=\"adresse.errors.required\" >\n        L' adresse est requis.\n      </p>\n    </ion-text>\n\n\n    <ion-row>\n      <ion-col>\n        <ion-button color=\"light\" type=\"reset\" expand=\"block\">Effacer</ion-button>\n      </ion-col>\n      <ion-col>\n        <ion-button [disabled]=\"!form.valid\" type=\"submit\" expand=\"block\">Valider</ion-button>\n      </ion-col>\n    </ion-row>\n  </form>\n</ion-content>");
 
 /***/ }),
 
@@ -620,7 +620,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n    <ion-title>\n      {{title}}\n    </ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"onClose()\">\n        <ion-icon slot=\"icon-only\" name=\"close\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content  mode=\"ios\">\n  <ion-grid fixed>\n    <ion-row *ngFor=\"let categorie of categories|sortBy:'asc':['nom']\" class=\"ion-margin-bottom\">\n      <ion-col size=\"12\">\n        <ion-item lines=\"true\" mode=\"ios\">\n          <ion-button fill=\"clear\"  (click)=\"categorie.expand=!categorie.expand\">\n            <ion-icon slot=\"icon-only\" name=\"ios-arrow-forward\" *ngIf=\"!categorie.expand\"></ion-icon>\n            <ion-icon slot=\"icon-only\" name=\"ios-arrow-down\"  *ngIf=\"categorie.expand\"></ion-icon>\n          </ion-button>\n          <ion-label>{{categorie.nom}}  \n            <ion-badge>{{(produits|filterBy:'categorieId':categorie.id|searchBy:data.searchValue).length}}</ion-badge>\n          </ion-label>\n      \n        </ion-item>\n        <div *ngIf=\"categorie.expand\" class=\"container\">\n          <ion-slides mode=\"ios\" pager=\"ios\" scrollbar=\"ios\">\n            <ion-slide *ngFor=\"let produit of produits|filterBy:'categorieId':categorie.id|sortBy:'asc':['nom', 'prenom']|searchBy:data.searchValue\">\n             <ion-card mode=\"ios\">\n              <div class=\"img\">\n                <img src=\"{{produit.photo}}\">\n              </div>\n               <ion-card-header>\n                <ion-card-title color=\"secondary\">{{produit.nom}}</ion-card-title>\n                 <ion-card-subtitle color=\"danger\" >{{produit.quantite}} X {{produit.prixUnitaireVente}} F CFA</ion-card-subtitle>\n               </ion-card-header>\n               <ion-card-content>\n                <ion-item>\n                  <ion-input type=\"number\" [(ngModel)]=\"produit.quantite\" ></ion-input>\n                  <ion-button (click)=\"onAdd(produit.id, produit.prixUnitaireVente,produit.quantite)\" expand=\"block\"  shape=\"round\">\n                    <ion-icon slot=\"icon-only\" name=\"add\"></ion-icon>\n                  </ion-button>\n                </ion-item>\n               </ion-card-content>\n             </ion-card>\n            </ion-slide>\n          </ion-slides>\n          <ion-text color=\"danger\" *ngIf=\"(produits|filterBy:'categorieId':categorie.id|searchBy:data.searchValue).length===0\" >\n            <p>Aucune produit trouvée!</p>\n          </ion-text>\n        </div>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n    <ion-text color=\"danger\" *ngIf=\"categories.length===0\">\n      <p>Aucune categorie de produit! Veuillez ajouter une categorie de produit!</p>\n    </ion-text>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n    <ion-title>\n      Table {{numeroTable}}\n    </ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"onClose()\">\n        <ion-icon slot=\"icon-only\" name=\"close\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content  mode=\"ios\">\n  <ion-grid fixed>\n    <ion-row>\n      <ion-col size=\"6\">\n        <ion-item>\n          <ion-label>Type</ion-label>\n          <ion-select [(ngModel)]=\"typeClient\" [ngModelOptions]=\"{standalone: true}\">\n            <ion-select-option value=\"anonyme\">Anonyme</ion-select-option>\n            <ion-select-option value=\"client\">Client</ion-select-option>\n            <ion-select-option value=\"chambre\">Chambre</ion-select-option>\n          </ion-select>\n        </ion-item>\n      </ion-col>\n      <ion-col size=\"6\">\n        <ion-item *ngIf=\"typeClient==='client'\">\n          <ion-label>Nom</ion-label>\n          <ion-select [(ngModel)]=\"clientId\" [ngModelOptions]=\"{standalone: true}\">\n            <ion-select-option *ngFor=\"let client of clients\" value=\"client.id\">{{client.nom}} {{client.prenom}}</ion-select-option>\n          </ion-select>\n        </ion-item>\n        <ion-item *ngIf=\"typeClient==='chambre'\">\n          <ion-label>Numero</ion-label>\n          <ion-select [(ngModel)]=\"chambreId\" [ngModelOptions]=\"{standalone: true}\">\n            <ion-select-option *ngFor=\"let chambre of chambres\" value=\"chambre.id\">{{chambre.numero}}</ion-select-option>\n          </ion-select>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n    <ion-row *ngFor=\"let categorie of categories|sortBy:'asc':['nom']\" class=\"ion-margin-bottom\">\n      <ion-col size=\"12\">\n        <ion-item lines=\"true\" mode=\"ios\">\n          <ion-button fill=\"clear\"  (click)=\"categorie.expand=!categorie.expand\">\n            <ion-icon slot=\"icon-only\" name=\"chevron-forward-outline\" *ngIf=\"!categorie.expand\"></ion-icon>\n            <ion-icon slot=\"icon-only\" name=\"chevron-down-outline\"  *ngIf=\"categorie.expand\"></ion-icon>\n          </ion-button>\n          <ion-label>{{categorie.nom}}  \n            <ion-badge>{{(produits|filterBy:'categorieId':categorie.id|searchBy:data.searchValue).length}}</ion-badge>\n          </ion-label>\n      \n        </ion-item>\n        <div *ngIf=\"categorie.expand\" class=\"container\">\n          <ion-slides mode=\"ios\" pager=\"ios\" scrollbar=\"ios\">\n            <ion-slide *ngFor=\"let produit of produits|filterBy:'categorieId':categorie.id|sortBy:'asc':['nom', 'prenom']|searchBy:data.searchValue\">\n             <ion-card mode=\"ios\">\n              <div class=\"img\">\n                <img src=\"{{produit.photo}}\">\n              </div>\n               <ion-card-header>\n                <ion-card-title color=\"secondary\">{{produit.nom}}</ion-card-title>\n                 <ion-card-subtitle color=\"danger\" >{{produit.quantite}} X {{produit.prixUnitaireVente}} F CFA</ion-card-subtitle>\n               </ion-card-header>\n               <ion-card-content>\n                <ion-item>\n                  <ion-input type=\"number\" [(ngModel)]=\"produit.quantite\" ></ion-input>\n                  <ion-button (click)=\"onAdd(produit.id, produit.prixUnitaireVente,produit.quantite)\" expand=\"block\"  shape=\"round\">\n                    <ion-icon slot=\"icon-only\" name=\"add\"></ion-icon>\n                  </ion-button>\n                </ion-item>\n               </ion-card-content>\n             </ion-card>\n            </ion-slide>\n          </ion-slides>\n          <ion-text color=\"danger\" *ngIf=\"(produits|filterBy:'categorieId':categorie.id|searchBy:data.searchValue).length===0\" >\n            <p>Aucune produit trouvée!</p>\n          </ion-text>\n        </div>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n    <ion-text color=\"danger\" *ngIf=\"categories.length===0\">\n      <p>Aucune categorie de produit! Veuillez ajouter une categorie de produit!</p>\n    </ion-text>\n</ion-content>");
 
 /***/ }),
 
@@ -1324,9 +1324,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// http://ennahotel.eu-4.evennode.com/
-// 'http://192.168.1.70:3000/'
-const config = { url: 'http://ennahotel.eu-4.evennode.com/', options: {} };
+// const url = "http://ennahotel.eu-4.evennode.com/";
+// const url = 'http://192.168.1.70:3000/';
+const url = 'http://localhost:3000/';
+const config = { url: url, options: {} };
 const components = [
     _components_fonction_form_fonction_form_component__WEBPACK_IMPORTED_MODULE_10__["FonctionFormComponent"],
     _components_fonction_profil_fonction_profil_component__WEBPACK_IMPORTED_MODULE_12__["FonctionProfilComponent"],
@@ -1528,7 +1529,7 @@ CategorieProfilComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("ion-list {\n  width: 100% !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9jaGFtYnJlLWZvcm0vQzpcXFVzZXJzXFxBcm9hbVxcRGVza3RvcFxcaG90ZWwvc3JjXFxhcHBcXGNvbXBvbmVudHNcXGNoYW1icmUtZm9ybVxcY2hhbWJyZS1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL2NoYW1icmUtZm9ybS9jaGFtYnJlLWZvcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxzQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9jaGFtYnJlLWZvcm0vY2hhbWJyZS1mb3JtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWxpc3R7XHJcbiAgICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xyXG59XHJcbiIsImlvbi1saXN0IHtcbiAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("ion-list {\n  width: 100% !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9jaGFtYnJlLWZvcm0vQzpcXFVzZXJzXFxBcm9hbVxcRGVza3RvcFxcaG90ZWwtZnJvbnRlbmQvc3JjXFxhcHBcXGNvbXBvbmVudHNcXGNoYW1icmUtZm9ybVxcY2hhbWJyZS1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL2NoYW1icmUtZm9ybS9jaGFtYnJlLWZvcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxzQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9jaGFtYnJlLWZvcm0vY2hhbWJyZS1mb3JtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWxpc3R7XHJcbiAgICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xyXG59XHJcbiIsImlvbi1saXN0IHtcbiAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcbn0iXX0= */");
 
 /***/ }),
 
@@ -1856,19 +1857,72 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientFormComponent", function() { return ClientFormComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
+/* harmony import */ var src_app_services_location_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/location.service */ "./src/app/services/location.service.ts");
+
+
+
 
 
 let ClientFormComponent = class ClientFormComponent {
-    constructor() { }
-    ngOnInit() { }
+    constructor(popoverController, navParams, locationService) {
+        this.popoverController = popoverController;
+        this.navParams = navParams;
+        this.locationService = locationService;
+        this.title = "Ajout de client";
+    }
+    ngOnInit() {
+        let id = this.navParams.get('id');
+        let isIntrant = this.navParams.get('isIntrant');
+        if (id) {
+            let item = this.locationService.getClient(id);
+            this.title = item.nom;
+            this.initForm(item);
+        }
+        else
+            this.initForm({ id: null, nom: '', penom: '', contact1: '', contact2: '', adresse: '' });
+    }
+    initForm(item) {
+        this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
+            id: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](item.id),
+            nom: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](item.nom, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+            prenom: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](item.prenom),
+            contact1: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](item.contact1, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(8)]),
+            contact2: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](item.contact2),
+            adresse: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](item.adresse, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(2)]),
+        });
+    }
+    get nom() { return this.form.get('nom'); }
+    ;
+    get prenom() { return this.form.get('prenom'); }
+    ;
+    get contact1() { return this.form.get('contact1'); }
+    ;
+    get adresse() { return this.form.get('adresse'); }
+    ;
+    onSubmit() {
+        this.form.value.nom = this.form.value.nom.toUpperCase();
+        this.onClose(this.form.value);
+    }
+    onClose(data) {
+        this.popoverController.dismiss(data);
+    }
 };
+ClientFormComponent.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["PopoverController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavParams"] },
+    { type: src_app_services_location_service__WEBPACK_IMPORTED_MODULE_4__["LocationService"] }
+];
 ClientFormComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-client-form',
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./client-form.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/client-form/client-form.component.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./client-form.component.scss */ "./src/app/components/client-form/client-form.component.scss")).default]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["PopoverController"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavParams"],
+        src_app_services_location_service__WEBPACK_IMPORTED_MODULE_4__["LocationService"]])
 ], ClientFormComponent);
 
 
@@ -1928,7 +1982,7 @@ ClientProfilComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".img {\n  height: 170px;\n  width: 100%;\n}\n.img img {\n  height: 100%;\n  width: 100%;\n}\nion-card {\n  width: 220px;\n  height: 300px;\n  background-color: white;\n}\n.container {\n  background-color: rgba(0, 100, 255, 0.1);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9jb25zb21tYXRpb24tZm9ybS9DOlxcVXNlcnNcXEFyb2FtXFxEZXNrdG9wXFxob3RlbC9zcmNcXGFwcFxcY29tcG9uZW50c1xcY29uc29tbWF0aW9uLWZvcm1cXGNvbnNvbW1hdGlvbi1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL2NvbnNvbW1hdGlvbi1mb3JtL2NvbnNvbW1hdGlvbi1mb3JtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksYUFBQTtFQUNBLFdBQUE7QUNDSjtBREFJO0VBQ0ksWUFBQTtFQUNBLFdBQUE7QUNFUjtBREVBO0VBQ0ksWUFBQTtFQUNBLGFBQUE7RUFDQSx1QkFBQTtBQ0NKO0FERUE7RUFDSSx3Q0FBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9jb25zb21tYXRpb24tZm9ybS9jb25zb21tYXRpb24tZm9ybS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5pbWd7XHJcbiAgICBoZWlnaHQ6IDE3MHB4O1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBpbWd7XHJcbiAgICAgICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgfVxyXG59XHJcblxyXG5pb24tY2FyZHtcclxuICAgIHdpZHRoOiAyMjBweDtcclxuICAgIGhlaWdodDogMzAwcHg7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxufVxyXG5cclxuLmNvbnRhaW5lcntcclxuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwxMDAsMjU1LDAuMSk7XHJcbn0iLCIuaW1nIHtcbiAgaGVpZ2h0OiAxNzBweDtcbiAgd2lkdGg6IDEwMCU7XG59XG4uaW1nIGltZyB7XG4gIGhlaWdodDogMTAwJTtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbmlvbi1jYXJkIHtcbiAgd2lkdGg6IDIyMHB4O1xuICBoZWlnaHQ6IDMwMHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbn1cblxuLmNvbnRhaW5lciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwgMTAwLCAyNTUsIDAuMSk7XG59Il19 */");
+/* harmony default export */ __webpack_exports__["default"] = (".img {\n  height: 170px;\n  width: 100%;\n}\n.img img {\n  height: 100%;\n  width: 100%;\n}\nion-card {\n  width: 220px;\n  height: 300px;\n  background-color: white;\n}\n.container {\n  background-color: rgba(0, 100, 255, 0.1);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9jb25zb21tYXRpb24tZm9ybS9DOlxcVXNlcnNcXEFyb2FtXFxEZXNrdG9wXFxob3RlbC1mcm9udGVuZC9zcmNcXGFwcFxcY29tcG9uZW50c1xcY29uc29tbWF0aW9uLWZvcm1cXGNvbnNvbW1hdGlvbi1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL2NvbnNvbW1hdGlvbi1mb3JtL2NvbnNvbW1hdGlvbi1mb3JtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksYUFBQTtFQUNBLFdBQUE7QUNDSjtBREFJO0VBQ0ksWUFBQTtFQUNBLFdBQUE7QUNFUjtBREVBO0VBQ0ksWUFBQTtFQUNBLGFBQUE7RUFDQSx1QkFBQTtBQ0NKO0FERUE7RUFDSSx3Q0FBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9jb25zb21tYXRpb24tZm9ybS9jb25zb21tYXRpb24tZm9ybS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5pbWd7XHJcbiAgICBoZWlnaHQ6IDE3MHB4O1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBpbWd7XHJcbiAgICAgICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgfVxyXG59XHJcblxyXG5pb24tY2FyZHtcclxuICAgIHdpZHRoOiAyMjBweDtcclxuICAgIGhlaWdodDogMzAwcHg7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxufVxyXG5cclxuLmNvbnRhaW5lcntcclxuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwxMDAsMjU1LDAuMSk7XHJcbn0iLCIuaW1nIHtcbiAgaGVpZ2h0OiAxNzBweDtcbiAgd2lkdGg6IDEwMCU7XG59XG4uaW1nIGltZyB7XG4gIGhlaWdodDogMTAwJTtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbmlvbi1jYXJkIHtcbiAgd2lkdGg6IDIyMHB4O1xuICBoZWlnaHQ6IDMwMHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbn1cblxuLmNvbnRhaW5lciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwgMTAwLCAyNTUsIDAuMSk7XG59Il19 */");
 
 /***/ }),
 
@@ -1948,6 +2002,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_data_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/data.service */ "./src/app/services/data.service.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
 /* harmony import */ var src_app_services_consommation_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/consommation.service */ "./src/app/services/consommation.service.ts");
+/* harmony import */ var src_app_services_location_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/location.service */ "./src/app/services/location.service.ts");
+/* harmony import */ var src_app_services_chambre_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/chambre.service */ "./src/app/services/chambre.service.ts");
+
+
 
 
 
@@ -1955,13 +2013,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ConsommationFormComponent = class ConsommationFormComponent {
-    constructor(modalController, produitService, navParams, consommationService, data) {
+    constructor(modalController, produitService, navParams, consommationService, locationService, chambreService, data) {
         this.modalController = modalController;
         this.produitService = produitService;
         this.navParams = navParams;
         this.consommationService = consommationService;
+        this.locationService = locationService;
+        this.chambreService = chambreService;
         this.data = data;
         this.produitsArray = [];
+        this.typeClient = 'anonyme';
     }
     ngOnInit() {
         this.categorieSubscription = this.produitService.getCategories().subscribe((res) => {
@@ -1977,7 +2038,13 @@ let ConsommationFormComponent = class ConsommationFormComponent {
                 return item;
             });
         });
-        let tableId = this.navParams.get('tableId');
+        this.clientSubscription = this.locationService.getClients().subscribe((res) => {
+            this.clients = res;
+        });
+        this.chambreSubscription = this.chambreService.getChambres().subscribe((res) => {
+            this.chambres = res;
+        });
+        this.numeroTable = this.navParams.get('numeroTable');
         this.consommationId = this.navParams.get('consommationId');
         if (this.consommationId) {
             this.consommation = this.consommationService.getConsommation(this.consommationId);
@@ -2010,7 +2077,15 @@ let ConsommationFormComponent = class ConsommationFormComponent {
         });
     }
     onClose() {
-        this.modalController.dismiss(this.produitsArray);
+        if (this.typeClient === "client")
+            this.chambreId = null;
+        else if (this.typeClient === "anonyme") {
+            this.chambreId = null;
+            this.clientId = null;
+        }
+        else if (this.typeClient === "chambre")
+            this.clientId = null;
+        this.modalController.dismiss({ consommation: { clientId: this.clientId, chambreId: this.chambreId }, produits: this.produitsArray });
     }
 };
 ConsommationFormComponent.ctorParameters = () => [
@@ -2018,6 +2093,8 @@ ConsommationFormComponent.ctorParameters = () => [
     { type: src_app_services_produit_service__WEBPACK_IMPORTED_MODULE_2__["ProduitService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavParams"] },
     { type: src_app_services_consommation_service__WEBPACK_IMPORTED_MODULE_5__["ConsommationService"] },
+    { type: src_app_services_location_service__WEBPACK_IMPORTED_MODULE_6__["LocationService"] },
+    { type: src_app_services_chambre_service__WEBPACK_IMPORTED_MODULE_7__["ChambreService"] },
     { type: src_app_services_data_service__WEBPACK_IMPORTED_MODULE_3__["DataService"] }
 ];
 ConsommationFormComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -2030,6 +2107,8 @@ ConsommationFormComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         src_app_services_produit_service__WEBPACK_IMPORTED_MODULE_2__["ProduitService"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavParams"],
         src_app_services_consommation_service__WEBPACK_IMPORTED_MODULE_5__["ConsommationService"],
+        src_app_services_location_service__WEBPACK_IMPORTED_MODULE_6__["LocationService"],
+        src_app_services_chambre_service__WEBPACK_IMPORTED_MODULE_7__["ChambreService"],
         src_app_services_data_service__WEBPACK_IMPORTED_MODULE_3__["DataService"]])
 ], ConsommationFormComponent);
 
@@ -2227,7 +2306,7 @@ ControlProfilComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".bg-blue {\n  background-color: #b5b6ec;\n}\n\n.search-box {\n  margin-top: 3px;\n  background: #e4e1e1;\n  position: absolute;\n  left: 4%;\n  width: 27%;\n  max-height: 200px;\n  overflow-y: auto;\n  z-index: 2000;\n}\n\n.search-box ion-row {\n  cursor: -webkit-grab;\n  cursor: grab;\n  border-bottom: 1px white;\n}\n\n.search-box ion-row:hover {\n  background-color: white;\n  color: grey;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9lbnRyZWUtZm9ybS9DOlxcVXNlcnNcXEFyb2FtXFxEZXNrdG9wXFxob3RlbC9zcmNcXGFwcFxcY29tcG9uZW50c1xcZW50cmVlLWZvcm1cXGVudHJlZS1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL2VudHJlZS1mb3JtL2VudHJlZS1mb3JtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0kseUJBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsUUFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGdCQUFBO0VBQ0EsYUFBQTtBQ0NKOztBREFJO0VBQ0ksb0JBQUE7RUFBQSxZQUFBO0VBQ0Esd0JBQUE7QUNFUjs7QURBSTtFQUNJLHVCQUFBO0VBQ0EsV0FBQTtBQ0VSIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9lbnRyZWUtZm9ybS9lbnRyZWUtZm9ybS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iZy1ibHVle1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2I1YjZlYztcclxufVxyXG5cclxuLnNlYXJjaC1ib3h7XHJcbiAgICBtYXJnaW4tdG9wOiAzcHg7XHJcbiAgICBiYWNrZ3JvdW5kOiByZ2IoMjI4LCAyMjUsIDIyNSk7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICBsZWZ0OiA0JTtcclxuICAgIHdpZHRoOiAyNyU7XHJcbiAgICBtYXgtaGVpZ2h0OiAyMDBweDtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbiAgICB6LWluZGV4OiAyMDAwO1xyXG4gICAgaW9uLXJvd3tcclxuICAgICAgICBjdXJzb3I6IGdyYWI7XHJcbiAgICAgICAgYm9yZGVyLWJvdHRvbTogMXB4IHdoaXRlO1xyXG4gICAgfVxyXG4gICAgaW9uLXJvdzpob3ZlcntcclxuICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxuICAgICAgICBjb2xvcjogZ3JleTtcclxuICAgIH1cclxufSIsIi5iZy1ibHVlIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2I1YjZlYztcbn1cblxuLnNlYXJjaC1ib3gge1xuICBtYXJnaW4tdG9wOiAzcHg7XG4gIGJhY2tncm91bmQ6ICNlNGUxZTE7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbGVmdDogNCU7XG4gIHdpZHRoOiAyNyU7XG4gIG1heC1oZWlnaHQ6IDIwMHB4O1xuICBvdmVyZmxvdy15OiBhdXRvO1xuICB6LWluZGV4OiAyMDAwO1xufVxuLnNlYXJjaC1ib3ggaW9uLXJvdyB7XG4gIGN1cnNvcjogZ3JhYjtcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHdoaXRlO1xufVxuLnNlYXJjaC1ib3ggaW9uLXJvdzpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICBjb2xvcjogZ3JleTtcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = (".bg-blue {\n  background-color: #b5b6ec;\n}\n\n.search-box {\n  margin-top: 3px;\n  background: #e4e1e1;\n  position: absolute;\n  left: 4%;\n  width: 27%;\n  max-height: 200px;\n  overflow-y: auto;\n  z-index: 2000;\n}\n\n.search-box ion-row {\n  cursor: -webkit-grab;\n  cursor: grab;\n  border-bottom: 1px white;\n}\n\n.search-box ion-row:hover {\n  background-color: white;\n  color: grey;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9lbnRyZWUtZm9ybS9DOlxcVXNlcnNcXEFyb2FtXFxEZXNrdG9wXFxob3RlbC1mcm9udGVuZC9zcmNcXGFwcFxcY29tcG9uZW50c1xcZW50cmVlLWZvcm1cXGVudHJlZS1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL2VudHJlZS1mb3JtL2VudHJlZS1mb3JtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0kseUJBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsUUFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGdCQUFBO0VBQ0EsYUFBQTtBQ0NKOztBREFJO0VBQ0ksb0JBQUE7RUFBQSxZQUFBO0VBQ0Esd0JBQUE7QUNFUjs7QURBSTtFQUNJLHVCQUFBO0VBQ0EsV0FBQTtBQ0VSIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9lbnRyZWUtZm9ybS9lbnRyZWUtZm9ybS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iZy1ibHVle1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2I1YjZlYztcclxufVxyXG5cclxuLnNlYXJjaC1ib3h7XHJcbiAgICBtYXJnaW4tdG9wOiAzcHg7XHJcbiAgICBiYWNrZ3JvdW5kOiByZ2IoMjI4LCAyMjUsIDIyNSk7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICBsZWZ0OiA0JTtcclxuICAgIHdpZHRoOiAyNyU7XHJcbiAgICBtYXgtaGVpZ2h0OiAyMDBweDtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbiAgICB6LWluZGV4OiAyMDAwO1xyXG4gICAgaW9uLXJvd3tcclxuICAgICAgICBjdXJzb3I6IGdyYWI7XHJcbiAgICAgICAgYm9yZGVyLWJvdHRvbTogMXB4IHdoaXRlO1xyXG4gICAgfVxyXG4gICAgaW9uLXJvdzpob3ZlcntcclxuICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxuICAgICAgICBjb2xvcjogZ3JleTtcclxuICAgIH1cclxufSIsIi5iZy1ibHVlIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2I1YjZlYztcbn1cblxuLnNlYXJjaC1ib3gge1xuICBtYXJnaW4tdG9wOiAzcHg7XG4gIGJhY2tncm91bmQ6ICNlNGUxZTE7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbGVmdDogNCU7XG4gIHdpZHRoOiAyNyU7XG4gIG1heC1oZWlnaHQ6IDIwMHB4O1xuICBvdmVyZmxvdy15OiBhdXRvO1xuICB6LWluZGV4OiAyMDAwO1xufVxuLnNlYXJjaC1ib3ggaW9uLXJvdyB7XG4gIGN1cnNvcjogZ3JhYjtcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHdoaXRlO1xufVxuLnNlYXJjaC1ib3ggaW9uLXJvdzpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICBjb2xvcjogZ3JleTtcbn0iXX0= */");
 
 /***/ }),
 
@@ -2922,7 +3001,7 @@ IntrantProfilComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("ion-list {\n  width: 100% !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9wcm9kdWl0LWZvcm0vQzpcXFVzZXJzXFxBcm9hbVxcRGVza3RvcFxcaG90ZWwvc3JjXFxhcHBcXGNvbXBvbmVudHNcXHByb2R1aXQtZm9ybVxccHJvZHVpdC1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3Byb2R1aXQtZm9ybS9wcm9kdWl0LWZvcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxzQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9wcm9kdWl0LWZvcm0vcHJvZHVpdC1mb3JtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWxpc3R7XHJcbiAgICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xyXG59XHJcbiIsImlvbi1saXN0IHtcbiAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("ion-list {\n  width: 100% !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9wcm9kdWl0LWZvcm0vQzpcXFVzZXJzXFxBcm9hbVxcRGVza3RvcFxcaG90ZWwtZnJvbnRlbmQvc3JjXFxhcHBcXGNvbXBvbmVudHNcXHByb2R1aXQtZm9ybVxccHJvZHVpdC1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3Byb2R1aXQtZm9ybS9wcm9kdWl0LWZvcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxzQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9wcm9kdWl0LWZvcm0vcHJvZHVpdC1mb3JtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWxpc3R7XHJcbiAgICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xyXG59XHJcbiIsImlvbi1saXN0IHtcbiAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcbn0iXX0= */");
 
 /***/ }),
 
@@ -3214,7 +3293,7 @@ ProprieteFormComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".bg-blue {\n  background-color: #b5b6ec;\n}\n\n.search-box {\n  margin-top: 3px;\n  background: #e4e1e1;\n  position: absolute;\n  left: 4%;\n  width: 47%;\n  max-height: 200px;\n  overflow-y: auto;\n  z-index: 2000;\n}\n\n.search-box ion-row {\n  cursor: -webkit-grab;\n  cursor: grab;\n  border-bottom: 1px white;\n}\n\n.search-box ion-row:hover {\n  background-color: white;\n  color: grey;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zb3J0aWUtZm9ybS9DOlxcVXNlcnNcXEFyb2FtXFxEZXNrdG9wXFxob3RlbC9zcmNcXGFwcFxcY29tcG9uZW50c1xcc29ydGllLWZvcm1cXHNvcnRpZS1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3NvcnRpZS1mb3JtL3NvcnRpZS1mb3JtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0kseUJBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsUUFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGdCQUFBO0VBQ0EsYUFBQTtBQ0NKOztBREFJO0VBQ0ksb0JBQUE7RUFBQSxZQUFBO0VBQ0Esd0JBQUE7QUNFUjs7QURBSTtFQUNJLHVCQUFBO0VBQ0EsV0FBQTtBQ0VSIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9zb3J0aWUtZm9ybS9zb3J0aWUtZm9ybS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iZy1ibHVle1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2I1YjZlYztcclxufVxyXG5cclxuLnNlYXJjaC1ib3h7XHJcbiAgICBtYXJnaW4tdG9wOiAzcHg7XHJcbiAgICBiYWNrZ3JvdW5kOiByZ2IoMjI4LCAyMjUsIDIyNSk7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICBsZWZ0OiA0JTtcclxuICAgIHdpZHRoOiA0NyU7XHJcbiAgICBtYXgtaGVpZ2h0OiAyMDBweDtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbiAgICB6LWluZGV4OiAyMDAwO1xyXG4gICAgaW9uLXJvd3tcclxuICAgICAgICBjdXJzb3I6IGdyYWI7XHJcbiAgICAgICAgYm9yZGVyLWJvdHRvbTogMXB4IHdoaXRlO1xyXG4gICAgfVxyXG4gICAgaW9uLXJvdzpob3ZlcntcclxuICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxuICAgICAgICBjb2xvcjogZ3JleTtcclxuICAgIH1cclxufSIsIi5iZy1ibHVlIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2I1YjZlYztcbn1cblxuLnNlYXJjaC1ib3gge1xuICBtYXJnaW4tdG9wOiAzcHg7XG4gIGJhY2tncm91bmQ6ICNlNGUxZTE7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbGVmdDogNCU7XG4gIHdpZHRoOiA0NyU7XG4gIG1heC1oZWlnaHQ6IDIwMHB4O1xuICBvdmVyZmxvdy15OiBhdXRvO1xuICB6LWluZGV4OiAyMDAwO1xufVxuLnNlYXJjaC1ib3ggaW9uLXJvdyB7XG4gIGN1cnNvcjogZ3JhYjtcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHdoaXRlO1xufVxuLnNlYXJjaC1ib3ggaW9uLXJvdzpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICBjb2xvcjogZ3JleTtcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = (".bg-blue {\n  background-color: #b5b6ec;\n}\n\n.search-box {\n  margin-top: 3px;\n  background: #e4e1e1;\n  position: absolute;\n  left: 4%;\n  width: 47%;\n  max-height: 200px;\n  overflow-y: auto;\n  z-index: 2000;\n}\n\n.search-box ion-row {\n  cursor: -webkit-grab;\n  cursor: grab;\n  border-bottom: 1px white;\n}\n\n.search-box ion-row:hover {\n  background-color: white;\n  color: grey;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zb3J0aWUtZm9ybS9DOlxcVXNlcnNcXEFyb2FtXFxEZXNrdG9wXFxob3RlbC1mcm9udGVuZC9zcmNcXGFwcFxcY29tcG9uZW50c1xcc29ydGllLWZvcm1cXHNvcnRpZS1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3NvcnRpZS1mb3JtL3NvcnRpZS1mb3JtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0kseUJBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsUUFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGdCQUFBO0VBQ0EsYUFBQTtBQ0NKOztBREFJO0VBQ0ksb0JBQUE7RUFBQSxZQUFBO0VBQ0Esd0JBQUE7QUNFUjs7QURBSTtFQUNJLHVCQUFBO0VBQ0EsV0FBQTtBQ0VSIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9zb3J0aWUtZm9ybS9zb3J0aWUtZm9ybS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iZy1ibHVle1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2I1YjZlYztcclxufVxyXG5cclxuLnNlYXJjaC1ib3h7XHJcbiAgICBtYXJnaW4tdG9wOiAzcHg7XHJcbiAgICBiYWNrZ3JvdW5kOiByZ2IoMjI4LCAyMjUsIDIyNSk7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICBsZWZ0OiA0JTtcclxuICAgIHdpZHRoOiA0NyU7XHJcbiAgICBtYXgtaGVpZ2h0OiAyMDBweDtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbiAgICB6LWluZGV4OiAyMDAwO1xyXG4gICAgaW9uLXJvd3tcclxuICAgICAgICBjdXJzb3I6IGdyYWI7XHJcbiAgICAgICAgYm9yZGVyLWJvdHRvbTogMXB4IHdoaXRlO1xyXG4gICAgfVxyXG4gICAgaW9uLXJvdzpob3ZlcntcclxuICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxuICAgICAgICBjb2xvcjogZ3JleTtcclxuICAgIH1cclxufSIsIi5iZy1ibHVlIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2I1YjZlYztcbn1cblxuLnNlYXJjaC1ib3gge1xuICBtYXJnaW4tdG9wOiAzcHg7XG4gIGJhY2tncm91bmQ6ICNlNGUxZTE7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbGVmdDogNCU7XG4gIHdpZHRoOiA0NyU7XG4gIG1heC1oZWlnaHQ6IDIwMHB4O1xuICBvdmVyZmxvdy15OiBhdXRvO1xuICB6LWluZGV4OiAyMDAwO1xufVxuLnNlYXJjaC1ib3ggaW9uLXJvdyB7XG4gIGN1cnNvcjogZ3JhYjtcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHdoaXRlO1xufVxuLnNlYXJjaC1ib3ggaW9uLXJvdzpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICBjb2xvcjogZ3JleTtcbn0iXX0= */");
 
 /***/ }),
 
@@ -3800,7 +3879,7 @@ TypeProfilComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("ion-list {\n  width: 100% !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy91c2VyLWZvcm0vQzpcXFVzZXJzXFxBcm9hbVxcRGVza3RvcFxcaG90ZWwvc3JjXFxhcHBcXGNvbXBvbmVudHNcXHVzZXItZm9ybVxcdXNlci1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3VzZXItZm9ybS91c2VyLWZvcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxzQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy91c2VyLWZvcm0vdXNlci1mb3JtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWxpc3R7XHJcbiAgICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xyXG59XHJcbiIsImlvbi1saXN0IHtcbiAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("ion-list {\n  width: 100% !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy91c2VyLWZvcm0vQzpcXFVzZXJzXFxBcm9hbVxcRGVza3RvcFxcaG90ZWwtZnJvbnRlbmQvc3JjXFxhcHBcXGNvbXBvbmVudHNcXHVzZXItZm9ybVxcdXNlci1mb3JtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnRzL3VzZXItZm9ybS91c2VyLWZvcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxzQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy91c2VyLWZvcm0vdXNlci1mb3JtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWxpc3R7XHJcbiAgICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xyXG59XHJcbiIsImlvbi1saXN0IHtcbiAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcbn0iXX0= */");
 
 /***/ }),
 
@@ -5065,6 +5144,212 @@ EntreeService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
+/***/ "./src/app/services/location.service.ts":
+/*!**********************************************!*\
+  !*** ./src/app/services/location.service.ts ***!
+  \**********************************************/
+/*! exports provided: LocationService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LocationService", function() { return LocationService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./api.service */ "./src/app/services/api.service.ts");
+
+
+
+
+let LocationService = class LocationService {
+    constructor(api) {
+        this.api = api;
+        this.clientSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
+        this.clientTrashSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
+        this.locationSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
+        this.locationTrashSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
+        this.api.post('client:all', null).then((res) => {
+            this.clients = res;
+            this.clientSubject.next(this.clients);
+        });
+        this.api.post('client:trash', null).then((res) => {
+            this.clientsTrash = res;
+            this.clientTrashSubject.next(this.clientsTrash);
+        });
+        this.api.post('location:all', null).then((res) => {
+            this.locations = res;
+            this.locationSubject.next(this.locations);
+        });
+        this.api.post('location:trash', null).then((res) => {
+            this.locationsTrash = res;
+            this.locationTrashSubject.next(this.locationsTrash);
+        });
+        this.api.getStreamData().subscribe((res) => {
+            if (res.operation.model === "Client") {
+                if (res.operation.tableOperation === 'add') {
+                    this.clients.push(res.data);
+                    this.clientSubject.next(this.clients);
+                }
+                else if (res.operation.tableOperation === 'edit') {
+                    let i = this.clients.findIndex(item => item.id === res.data.id);
+                    this.clients[i] = res.data;
+                    this.clientSubject.next(this.clients);
+                }
+                else if (res.operation.tableOperation === 'delete') {
+                    let i = this.clients.findIndex(item => item.id === res.data.id);
+                    this.clients.splice(i, 1);
+                    this.clientSubject.next(this.clients);
+                    this.clientsTrash.push(res.data);
+                    this.clientTrashSubject.next(this.clientsTrash);
+                    this.clientSubject.next(this.clients);
+                }
+                else if (res.operation.tableOperation === 'restore') {
+                    let i = this.clientsTrash.findIndex(item => item.id === res.data.id);
+                    this.clientsTrash.splice(i, 1);
+                    this.clientTrashSubject.next(this.clientsTrash);
+                    this.clients.push(res.data);
+                    this.clientSubject.next(this.clients);
+                }
+            }
+            else if (res.operation.model === "Location") {
+                if (res.operation.tableOperation === 'add') {
+                    this.locations.push(res.data);
+                    this.locationSubject.next(this.locations);
+                }
+                else if (res.operation.tableOperation === 'edit') {
+                    let i = this.locations.findIndex(item => item.id === res.data.id);
+                    this.locations[i] = res.data;
+                    this.locationSubject.next(this.locations);
+                }
+                else if (res.operation.tableOperation === 'delete') {
+                    let i = this.locations.findIndex(item => item.id === res.data.id);
+                    this.locations.splice(i, 1);
+                    this.locationSubject.next(this.locations);
+                    this.locationsTrash.push(res.data);
+                    this.locationTrashSubject.next(this.locationsTrash);
+                    this.locationSubject.next(this.locations);
+                }
+                else if (res.operation.tableOperation === 'restore') {
+                    let i = this.locationsTrash.findIndex(item => item.id === res.data.id);
+                    this.locationsTrash.splice(i, 1);
+                    this.locationTrashSubject.next(this.locationsTrash);
+                    this.locations.push(res.data);
+                    this.locationSubject.next(this.locations);
+                }
+            }
+        });
+    }
+    /**
+     * client
+     */
+    getClients() {
+        return this.clientSubject.asObservable();
+    }
+    getClientsTrash() {
+        return this.clientTrashSubject.asObservable();
+    }
+    getClientTrash(id) {
+        return this.clientsTrash.find(item => item.id === id);
+    }
+    getClient(id) {
+        return this.clients.find(item => item.id === id);
+    }
+    addClient(data) {
+        return this.api.post('client:add', data).then((res) => {
+            this.clients.push(res);
+            this.clientSubject.next(this.clients);
+        });
+    }
+    editClient(data) {
+        return this.api.post('client:edit', data).then((res) => {
+            let i = this.clients.findIndex(item => item.id === res.id);
+            this.clients[i] = res;
+            this.clientSubject.next(this.clients);
+        });
+    }
+    deleteClient(id) {
+        return this.api.post('client:delete', id).then((res) => {
+            let i = this.clients.findIndex(item => item.id === res.id);
+            this.clients.splice(i, 1);
+            this.clientSubject.next(this.clients);
+            this.clientsTrash.push(res);
+            this.clientTrashSubject.next(this.clientsTrash);
+        });
+    }
+    restoreClient(id) {
+        return this.api.post('client:restore', id).then((res) => {
+            let i = this.clientsTrash.findIndex(item => item.id === res.id);
+            this.clientsTrash.splice(i, 1);
+            this.clientTrashSubject.next(this.clientsTrash);
+            this.clients.push(res);
+            this.clientSubject.next(this.clients);
+        });
+    }
+    /**
+    * location
+    */
+    getLocations() {
+        return this.locationSubject.asObservable();
+    }
+    getLocationsTrash() {
+        return this.locationTrashSubject.asObservable();
+    }
+    getLocationTrash(id) {
+        return this.locationsTrash.find(item => item.id === id);
+    }
+    getLocation(id) {
+        return this.locations.find(item => item.id === id);
+    }
+    getLocationProduits(id) {
+        return this.api.post('location:produits', id).then(res => res);
+    }
+    addLocation(data) {
+        return this.api.post('location:add', data).then((res) => {
+            this.locations.push(res);
+            this.locationSubject.next(this.locations);
+        });
+    }
+    editLocation(data) {
+        return this.api.post('location:edit', data).then((res) => {
+            let i = this.locations.findIndex(item => item.id === res.id);
+            this.locations[i] = res;
+            this.locationSubject.next(this.locations);
+        });
+    }
+    deleteLocation(id) {
+        return this.api.post('location:delete', id).then((res) => {
+            let i = this.locations.findIndex(item => item.id === res.id);
+            this.locations.splice(i, 1);
+            this.locationSubject.next(this.locations);
+            this.locationsTrash.push(res);
+            this.locationTrashSubject.next(this.locationsTrash);
+        });
+    }
+    restoreLocation(id) {
+        return this.api.post('location:restore', id).then((res) => {
+            let i = this.locationsTrash.findIndex(item => item.id === res.id);
+            this.locationsTrash.splice(i, 1);
+            this.locationTrashSubject.next(this.locationsTrash);
+            this.locations.push(res);
+            this.locationSubject.next(this.locations);
+        });
+    }
+};
+LocationService.ctorParameters = () => [
+    { type: _api_service__WEBPACK_IMPORTED_MODULE_3__["ApiService"] }
+];
+LocationService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_api_service__WEBPACK_IMPORTED_MODULE_3__["ApiService"]])
+], LocationService);
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/params.service.ts":
 /*!********************************************!*\
   !*** ./src/app/services/params.service.ts ***!
@@ -5976,7 +6261,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Aroam\Desktop\hotel\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\Aroam\Desktop\hotel-frontend\src\main.ts */"./src/main.ts");
 
 
 /***/ }),

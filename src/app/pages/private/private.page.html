@@ -47,7 +47,7 @@
             <ion-menu-toggle autoHide="false" *ngFor="let p of appPages; let i = index">
               <ion-item [routerLink]="p.url" routerLinkActive="active" routerDirection="root" detail="false">
                 <ion-icon slot="start" [name]="p.icon"></ion-icon>
-                <ion-label>
+                <ion-label color="primary">
                   {{p.title}}
                 </ion-label>
               </ion-item>
@@ -58,7 +58,7 @@
           <ion-list lines="none" id="list-bottom">
             <ion-menu-toggle autoHide="false">
               <ion-item button (click)="onLogout()" detail="false">
-                <ion-icon slot="start" color="danger" name="log-out"></ion-icon>
+                <ion-icon slot="start" color="danger" name="log-out-outline"></ion-icon>
                 <ion-label color="danger">
                   Deconnexion
                 </ion-label>

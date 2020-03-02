@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar mode="ios" color="primary">
+    <ion-title *ngIf="client">{{ client.nom }} {{ client.prenom }}</ion-title>
+    <ion-title *ngIf="!client">CONSOMMATION ANONYME</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onClose()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list mode="ios">
+    <ion-list-header mode="ios">
+      <ion-label>facture {{numerofacture}}</ion-label>
+    </ion-list-header>
+
+    <ion-item mode="ios" class="ion-margin" *ngIf="client">
+      <ion-col size="4">Client</ion-col>
+      <ion-col size="8">: <ion-text color="secondary">{{client.nom}} {{client.prenom}}</ion-text></ion-col>
+    </ion-item>
+
+    <ion-list class="ion-margin">
+      <ion-item>
+        <ion-col size="1">
+          <ion-text color="primary">N</ion-text>
+        </ion-col>
+        <ion-col size="2">
+          <ion-text color="primary">Quantité</ion-text>
+        </ion-col>
+        <ion-col size="4">
+          <ion-text color="primary"> Désignation</ion-text>
+        </ion-col>
+        <ion-col size="2">
+          <ion-text color="primary">Prix unitaire</ion-text>
+        </ion-col>
+        <ion-col size="3">
+          <ion-text color="primary">Prix Total</ion-text>
+        </ion-col>
+      </ion-item>
+      <ion-item mode="ios" *ngFor="let item of consommation.products; let i = index">
+        <ion-col size="1">
+          <ion-note>{{i+1}}</ion-note>
+        </ion-col>
+        <ion-col size="2">
+          <ion-text color="dark">{{item.consommationProduit.quantite}}</ion-text>
+        </ion-col>
+        <ion-col size="4">
+          <ion-text color="dark">{{getCategorie(item.categorieId)}} {{item.nom}}
+          </ion-text>
+        </ion-col>
+        <ion-col size="2">
+          <ion-text color="dark">{{item.consommationProduit.prixUnitaire}}</ion-text>
+        </ion-col>
+        <ion-col size="3">
+          <ion-text color="dark">{{item.consommationProduit.prixUnitaire * item.consommationProduit.quantite}}
+          </ion-text>
+        </ion-col>
+      </ion-item>
+    </ion-list>
+    <ion-item mode="ios">
+      <ion-col size="4">Montan Total</ion-col>
+      <ion-col size="8">: <ion-text color="secondary">{{consommation.factureTotale}} F CFA</ion-text></ion-col>
+    </ion-item>
+    <ion-item mode="ios">
+      <ion-col size="4">Date</ion-col>
+      <ion-col size="8">: <ion-text color="secondary">{{consommation.createdAt|date:'dd-MM-yyyy'}}</ion-text></ion-col>
+    </ion-item>
+   <div class="text-center">
+     <ion-button (click)="endConso()" expand="block"  shape="round">
+       Arreter la consommation 
+     </ion-button>
+   </div>
+  </ion-list>
+</ion-content>

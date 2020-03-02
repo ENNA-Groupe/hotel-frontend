@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar mode="ios" color="primary">
+    <ion-title>
+      {{title}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onClose()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-item>
+      <ion-col size="4">
+        <ion-label color="primary">
+          Nom
+        </ion-label>
+      </ion-col>
+      <ion-col size="8">
+        <ion-label>
+          : {{item.nom}}
+        </ion-label>
+      </ion-col>
+    </ion-item>
+    <ion-item>
+      <ion-col size="4">
+        <ion-label color="primary">
+          Ajouté le
+        </ion-label>
+      </ion-col>
+      <ion-col size="8">
+        <ion-label>
+          : {{item.createdAt|date:'dd/MM/yyyy HH:mm'}}
+        </ion-label>
+      </ion-col>
+    </ion-item>
+    <ion-item>
+      <ion-col size="4">
+        <ion-label color="primary">
+          Modifié le
+        </ion-label>
+      </ion-col>
+      <ion-col size="8">
+        <ion-label>
+          : {{item.updatedAt|date:'dd/MM/yyyy HH:mm'}}
+        </ion-label>
+      </ion-col>
+    </ion-item>
+    <ion-item *ngIf="item.deletedAt">
+      <ion-col size="4">
+        <ion-label color="primary">
+          Supprimé le
+        </ion-label>
+      </ion-col>
+      <ion-col size="8">
+        <ion-label>
+          : {{item.deletedAt|date:'dd/MM/yyyy HH:mm'}}
+        </ion-label>
+      </ion-col>
+    </ion-item>
+    <ion-item>
+      <ion-col size="4">
+        <ion-label color="primary">
+          Description
+        </ion-label>
+      </ion-col>
+      <ion-col size="8">
+        <p>
+          : {{item.description}}
+        </p>
+      </ion-col>
+    </ion-item>
+  </ion-grid>
+</ion-content>

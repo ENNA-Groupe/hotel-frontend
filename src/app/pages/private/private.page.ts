@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user.model';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { ConsommationService } from 'src/app/services/consommation.service';
 
 @Component({
   selector: 'app-private',
@@ -18,79 +19,80 @@ export class PrivatePage implements OnInit {
     {
       title: 'Dashboard',
       url: '/private/dashboard',
-      icon: 'apps'
+      icon: 'apps-outline'
     },
     {
       
       title: 'Location',
       url: '/private/locations',
-      icon: 'bed'
+      icon: 'bed-outline'
     },
     {
       title: 'Consommation',
       url: '/private/consommations',
-      icon: 'beer'
+      icon: 'beer-outline'
     },
     {
       title: 'Chambres',
       url: '/private/chambres',
-      icon: 'home'
+      icon: 'home-outline'
     },
     {
       title: 'Produits',
       url: '/private/produits',
-      icon: 'appstore'
+      icon: 'basket-outline'
     },
     {
       title: 'Intrants',
       url: '/private/intrants',
-      icon: 'archive'
+      icon: 'archive-outline'
     },
     {
       title: 'Entrees',
       url: '/private/entrees',
-      icon: 'return-left'
+      icon: 'return-down-back-outline'
     },
     {
       title: 'Sorties',
       url: '/private/sorties',
-      icon: 'return-right'
+      icon: 'return-down-forward-outline'
     },
     {
       title: 'Utilisateurs',
       url: '/private/users',
-      icon: 'people'
+      icon: 'people-outline'
     },
     {
       title: 'Clients',
       url: '/private/clients',
-      icon: 'person'
+      icon: 'person-outline'
     },
     {
       title: 'Fournisseurs',
       url: '/private/fournisseurs',
-      icon: 'contact'
+      icon: 'clipboard-outline'
     },
     {
       title: 'Parametres',
       url: '/private/params',
-      icon: 'cog'
+      icon: 'cog-outline'
     },
     {
       title: 'Stats',
       url: '/private/stats',
-      icon: 'stats'
+      icon: 'stats-chart-outline'
     }
   ];
   loggedIn = false;
   dark = false;
-  user: User = {id: null, identifiant: '', password: '', nom: 'TEST', prenom: 'Test', photo: './assets/user.png', contact1: '90909090', contact2: '99009900', createdAt: '', deletedAt:'',updatedAt:'' };
+  user: User = {id: null, identifiant: '', password: '', nom: 'TEST', prenom: 'Test', photo: './assets/img/user.png', contact1: '90909090', contact2: '99009900', createdAt: '', deletedAt:'',updatedAt:'' };
   userSub: Subscription;
 
   constructor(
     private menu: MenuController,
     private data: DataService,
     private auth: AuthService,
+    private consommationService: ConsommationService,
     private router: Router
   ) { }
 

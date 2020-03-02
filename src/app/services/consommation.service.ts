@@ -11,8 +11,10 @@ export class ConsommationService {
 
   private tables: Table[];
   private tablesTrash: Table[];
-  private consommations: Consommation[];
+  private consommations: Consommation[] = [];
   private consommationsTrash: Consommation[];
+
+  private consommationProduits: any[] = [];
 
 
   private tableSubject = new BehaviorSubject<Table[]>([]);
@@ -41,6 +43,7 @@ export class ConsommationService {
 
     this.api.post('consommation:all', null).then(
       (res: Consommation[]) => {
+        console.log(res);
         this.consommations = res;
         this.consommationSubject.next(this.consommations);
       }
@@ -183,10 +186,28 @@ export class ConsommationService {
   getConsommation(id) {
     return this.consommations.find(item => item.id === id);
   }
-  getConsommationProduits(id){
-    return this.api.post('consommation:produits',id).then(
-      res => res
+  getTableConsommation(tableId) {
+    return this.consommations.find(item => item.tableId === tableId);
+  }
+
+  getConsommationProduits(id) {
+    return this.api.post('consommation:produits', id).then(
+      (res: any[]) => this.consommationProduits = res
     );
+  }
+
+  getConsommationProduit(consoId, prodId) {
+    let c = this.consommations.find(conso => conso.id === consoId);
+    return c.products.find(prod => prod.id === prodId);
+  }
+
+  chooseClient(data) {
+    return this.api.post('consommation:client', data).then(
+      (res: Consommation) => {
+        let i = this.consommations.findIndex(conso => conso.id === data.consommationId);
+          this.consommations[i] = res;
+        this.consommationSubject.next(this.consommations);
+      });
   }
 
   addConsommation(data) {
@@ -194,6 +215,51 @@ export class ConsommationService {
       (res: Consommation) => {
         this.consommations.push(res);
         this.consommationSubject.next(this.consommations);
+      });
+  }
+
+  addProdConso(data) {
+    return this.api.post('consommation:addProduit', data).then(
+      (res: Consommation) => {
+        if (res) {
+          let i = this.consommations.findIndex(conso => conso.id === data.consommationId);
+          this.consommations[i] = res;
+          this.consommationSubject.next(this.consommations);
+        }
+      });
+  }
+
+  removeProdConso(data) {
+    return this.api.post('consommation:removeProduit', data).then(
+      (res: Consommation) => {
+        if (res) {
+          let i = this.consommations.findIndex(conso => conso.id === data.consommationId);
+          this.consommations[i] = res;
+          this.consommationSubject.next(this.consommations);
+        }
+      });
+  }
+
+  addProduit(data) {
+    return this.api.post('consommation:newProduit', data).then(
+      (res: Consommation) => {
+        if (res) {
+          console.log(res);
+          let i = this.consommations.findIndex(conso => conso.id === data.consommationId);
+          this.consommations[i] = res;
+          this.consommationSubject.next(this.consommations);
+        }
+      });
+  }
+
+  removeProduit(data) {
+    return this.api.post('consommation:deleteProduit', data).then(
+      (res: Consommation) => {
+        if (res) {
+          let i = this.consommations.findIndex(conso => conso.id === data.consommationId);
+          this.consommations[i] = res;
+          this.consommationSubject.next(this.consommations);
+        }
       });
   }
 
@@ -216,7 +282,20 @@ export class ConsommationService {
         this.consommationTrashSubject.next(this.consommationsTrash);
       });
   }
-  
+
+  endConso(data) {
+    return this.api.post('consommation:end', data).then(
+      (res: Consommation) => {
+        console.log(res);
+        if (res) {
+          let i = this.consommations.findIndex(conso => conso.id === data.consommationId);
+          this.consommations[i] = res;
+          this.consommationSubject.next(this.consommations);
+          return true;
+        }
+      });
+  }
+
   restoreConsommation(id) {
     return this.api.post('consommation:restore', id).then(
       (res: Consommation) => {
